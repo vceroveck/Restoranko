@@ -51,7 +51,8 @@
         android:layout_marginBottom="84dp"
         android:text="@string/registration"
         tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="372dp" />
+        tools:layout_editor_absoluteY="372dp"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/btn_without_signin"

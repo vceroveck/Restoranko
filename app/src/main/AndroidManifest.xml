@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Registration"
+            android:parentActivityName=".MainActivity"
+            android:label = "Registration"
+            ></activity>
     </application>
 
 </manifest>
