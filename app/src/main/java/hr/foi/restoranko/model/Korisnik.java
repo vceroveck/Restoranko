@@ -2,10 +2,15 @@ package hr.foi.restoranko.model;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import hr.foi.restoranko.LogIn;
 
 public class Korisnik {
     private String ime;
@@ -13,6 +18,7 @@ public class Korisnik {
     private String email;
     private String korisnickoIme;
     private String lozinka;
+    Korisnik prijavljeniKorisnik;
 
     public Korisnik(String ime, String prezime, String email, String korisnickoIme, String lozinka) {
         this.ime = ime;
@@ -74,6 +80,14 @@ public class Korisnik {
 
             }
         });
+    }
+
+    public static FirebaseUser prijaviKorisnika(String email, String password)
+    {
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword(email, password);
+        FirebaseUser user=auth.getCurrentUser();
+        return user;
     }
 
 }

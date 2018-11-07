@@ -22,6 +22,10 @@
             android:parentActivityName=".MainActivity"
             android:label = "Registration"
             ></activity>
+        <activity android:name=".LogIn"
+            android:parentActivityName=".MainActivity"
+            android:label="Prijava"
+            ></activity>
     </application>
 
 </manifest>
