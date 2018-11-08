@@ -82,9 +82,8 @@ public class Korisnik {
         });
     }
 
-    public static FirebaseUser prijaviKorisnika(String email, String password)
+    public static FirebaseUser prijaviKorisnika(FirebaseAuth auth, String email, String password)
     {
-        FirebaseAuth auth=FirebaseAuth.getInstance();
         auth.signInWithEmailAndPassword(email, password);
         FirebaseUser user=auth.getCurrentUser();
         return user;
