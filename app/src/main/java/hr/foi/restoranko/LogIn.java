@@ -40,7 +40,7 @@ public class LogIn extends AppCompatActivity {
                 DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
                 DatabaseReference userReference=reference.child("user");
                 if(user==null){
-                    Toast.makeText(LogIn.this, "User je null" + user, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogIn.this, "Nepostojeći korisnik" + user, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     
