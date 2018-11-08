@@ -1,5 +1,6 @@
 package hr.foi.restoranko;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,12 +43,14 @@ public class LogIn extends AppCompatActivity {
                     Toast.makeText(LogIn.this, "User je null" + user, Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    
                     userReference.orderByChild(user.getUid())
                             .limitToFirst(1)
                             .addChildEventListener(new ChildEventListener() {
                                 @Override
                                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                                     Korisnik korisnik = dataSnapshot.getValue(Korisnik.class);
+                                    startActivity(new Intent(LogIn.this, Pocetna.class));
                                     Toast.makeText(LogIn.this, "Ime: " + korisnik.getIme() + " Prezime: " + korisnik.getPrezime(), Toast.LENGTH_SHORT).show();
                                 }
 

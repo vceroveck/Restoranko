@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hr.foi.restoranko">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,13 +20,13 @@
         </activity>
         <activity
             android:name=".Registration"
-            android:parentActivityName=".MainActivity"
-            android:label = "Registration"
-            ></activity>
-        <activity android:name=".LogIn"
-        android:parentActivityName=".MainActivity"
-        android:label="Prijava"
-        ></activity>
+            android:label="Registration"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LogIn"
+            android:label="Prijava"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Pocetna"></activity>
     </application>
 
 </manifest>
