@@ -35,9 +35,10 @@
         android:id="@+id/btn_signin"
         android:layout_width="244dp"
         android:layout_height="44dp"
-        android:layout_alignEnd="@+id/btn_without_signin"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="149dp"
         android:text="@string/sign_in"
         tools:layout_editor_absoluteX="71dp"
         tools:layout_editor_absoluteY="308dp" />
@@ -46,23 +47,12 @@
         android:id="@+id/btn_registration"
         android:layout_width="243dp"
         android:layout_height="44dp"
-        android:layout_alignStart="@+id/btn_without_signin"
+        android:layout_alignEnd="@+id/btn_signin"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="67dp"
         android:text="@string/registration"
+        tools:ignore="OnClick"
         tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="372dp"
-        tools:ignore="OnClick" />
-
-    <Button
-        android:id="@+id/btn_without_signin"
-        android:layout_width="241dp"
-        android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
-        android:text="@string/con"
-        tools:layout_editor_absoluteX="71dp"
-        tools:layout_editor_absoluteY="435dp" />
+        tools:layout_editor_absoluteY="372dp" />
 
 </RelativeLayout>
