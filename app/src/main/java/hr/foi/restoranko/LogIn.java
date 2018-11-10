@@ -45,41 +45,44 @@ public class LogIn extends AppCompatActivity {
                 String email = txtEmail.getText().toString();
                 EditText txtPassword = (EditText) findViewById(R.id.txtLozinka);
                 String password = txtPassword.getText().toString();
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                FirebaseUser user=auth.getCurrentUser();
-                                final String userID=user.getUid();
-                                DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("user");
-                                Korisnik.prijavljeniKorisnik=new Korisnik();
-                                userReference.orderByChild("email")
-                                        .equalTo(user.getEmail())
-                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                auth.signOut();
+                try {
+                    auth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    if (user == null) return;
+                                    final String userID = user.getUid();
+                                    DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("user");
+                                    Korisnik.prijavljeniKorisnik = new Korisnik();
+                                    userReference.orderByChild("email")
+                                            .equalTo(user.getEmail())
+                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    for (DataSnapshot datas : dataSnapshot.getChildren()) {
+                                                        Korisnik.prijavljeniKorisnik.setIme(datas.child("ime").getValue().toString());
+                                                        Korisnik.prijavljeniKorisnik.setPrezime(datas.child("prezime").getValue().toString());
+                                                        Korisnik.prijavljeniKorisnik.setuId(userID);
+                                                        Korisnik.prijavljeniKorisnik.setEmail(datas.child("email").getValue().toString());
+                                                        Korisnik.prijavljeniKorisnik.setKorisnickoIme(datas.child("korisnickoIme").getValue().toString());
+                                                        Korisnik.prijavljeniKorisnik.setLozinka(datas.child("lozinka").getValue().toString());
+                                                    }
+                                                    korisnikPrijavljen();
 
-                                                int i=0;
-                                                for(DataSnapshot datas: dataSnapshot.getChildren()){
-                                                    i++;
-                                                    Korisnik.prijavljeniKorisnik.setIme(datas.child("ime").getValue().toString());
-                                                    Korisnik.prijavljeniKorisnik.setPrezime(datas.child("prezime").getValue().toString());
-                                                    Korisnik.prijavljeniKorisnik.setuId(userID);
-                                                    Korisnik.prijavljeniKorisnik.setEmail(datas.child("email").getValue().toString());
-                                                    Korisnik.prijavljeniKorisnik.setKorisnickoIme(datas.child("korisnickoIme").getValue().toString());
-                                                    Korisnik.prijavljeniKorisnik.setLozinka(datas.child("lozinka").getValue().toString());
                                                 }
-                                                korisnikPrijavljen();
 
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
-                            }
-                        });
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                }
+                                            });
+                                }
+                            });
+                }
+                catch (Exception ex){
+                    Toast.makeText(LogIn.this, "Greška u prijavi ili neispravni podaci!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
