@@ -3,8 +3,8 @@
     <string name="app_name">Restoranko</string>
 
     <!-- activity_main.xml -->
-    <string name="sign_in">Sign in</string>
-    <string name="registration">Registration</string>
+    <string name="sign_in">Prijava</string>
+    <string name="registration">Registracija</string>
     <string name="con">Continue without sign in</string>
     <string name="text"> The best way to order food</string>
     <string name="logo"> Logo</string>
