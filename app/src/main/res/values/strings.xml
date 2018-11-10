@@ -8,5 +8,15 @@
     <string name="con">Continue without sign in</string>
     <string name="text"> The best way to order food</string>
     <string name="logo"> Logo</string>
+    
+    <!-- activity_registration.xml -->
+    <string name="regIme">Ime</string>
+    <string name="regPrezime">Prezime</string>
+    <string name="regKorime">Korisničko ime</string>
+    <string name="regEmail">E-Mail</string>
+    <string name="regLozinka">Lozinka</string>
+    <string name="regPotvrda">Ponovite lozinku</string>
+    <string name="regRegistracija">Registriraj se</string>
+
 
 </resources>

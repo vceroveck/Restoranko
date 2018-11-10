@@ -20,7 +20,7 @@
         <activity
             android:name=".Registration"
             android:parentActivityName=".MainActivity"
-            android:label = "Registration"
+            android:label = "Registracija"
             ></activity>
         <activity android:name=".LogIn"
             android:parentActivityName=".MainActivity"
