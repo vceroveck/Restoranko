@@ -95,7 +95,7 @@ public class Registration extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                Toast.makeText(Registration.this, "Authentication failed." + task.getException(),
+                                Toast.makeText(Registration.this, "Registration failed." + task.getException(),
                                         Toast.LENGTH_SHORT).show();
                             } else {
                                 final FirebaseUser user=auth.getCurrentUser();

@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -18,7 +20,9 @@ public class Korisnik {
     private String email;
     private String korisnickoIme;
     private String lozinka;
-    Korisnik prijavljeniKorisnik;
+    public String uId;
+
+    public static Korisnik prijavljeniKorisnik;
 
     public Korisnik(String ime, String prezime, String email, String korisnickoIme, String lozinka) {
         this.ime = ime;
@@ -26,6 +30,7 @@ public class Korisnik {
         this.email = email;
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
+        this.uId=null;
     }
 
     public Korisnik() {
@@ -71,6 +76,13 @@ public class Korisnik {
         this.lozinka = lozinka;
     }
 
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
+    }
 
     public void registrirajKorisnika(){
         DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference();
@@ -82,11 +94,43 @@ public class Korisnik {
         });
     }
 
-    public static FirebaseUser prijaviKorisnika(FirebaseAuth auth, String email, String password)
+    public static FirebaseAuth prijaviKorisnika(FirebaseAuth auth, String email, String password)
     {
         auth.signInWithEmailAndPassword(email, password);
-        FirebaseUser user=auth.getCurrentUser();
-        return user;
+        return auth;
+    }
+
+    public static void kreirajPrijavljenogKorisnika(final FirebaseUser user, DatabaseReference userReference, final String userUid)
+    {
+        userReference.orderByChild(userUid)
+                .limitToFirst(1)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        prijavljeniKorisnik = dataSnapshot.getValue(Korisnik.class);
+                        prijavljeniKorisnik.setuId(userUid);
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
     }
 
 }
