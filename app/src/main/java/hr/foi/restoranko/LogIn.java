@@ -1,5 +1,6 @@
 package hr.foi.restoranko;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -53,5 +54,6 @@ public class LogIn extends AppCompatActivity {
 
     private void korisnikPrijavljen(){
         Toast.makeText(LogIn.this, "Uspješna prijava " + Korisnik.prijavljeniKorisnik.getIme() + " " + Korisnik.prijavljeniKorisnik.getPrezime(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(LogIn.this, Navigation.class));
     }
 }
