@@ -8,7 +8,7 @@
     <string name="con">Continue without sign in</string>
     <string name="text"> The best way to order food</string>
     <string name="logo"> Logo</string>
-    
+
     <!-- activity_registration.xml -->
     <string name="regIme">Ime</string>
     <string name="regPrezime">Prezime</string>
