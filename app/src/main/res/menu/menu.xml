@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+    android:id="@+id/logoutMenu"
+    android:orderInCategory="100"
+    app:showAsAction="always"
+    android:title="Odjavi se">
+</item>
+
+    <item
+        android:id="@+id/settingMenu"
+        android:orderInCategory="200"
+        app:showAsAction="never"
+        android:title="Postavke">
+    </item>
+
+</menu>

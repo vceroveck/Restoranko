@@ -22,22 +22,22 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="First name"
+            android:hint="@string/regIme"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/surnameValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="17dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="Last name"
+            android:hint="@string/regPrezime"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -52,7 +52,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="Username"
+            android:hint="@string/regKorime"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -67,7 +67,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="Password"
+            android:hint="@string/regLozinka"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -82,7 +82,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="Confirm password"
+            android:hint="@string/regPotvrda"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -96,7 +96,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
             android:layout_marginEnd="24dp"
-            android:text="SIGN UP"
+            android:text="@string/regRegistracija"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,22 +110,13 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
             android:ems="10"
-            android:hint="E-Mail"
+            android:hint="@string/regEmail"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/usernameValue" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:text="Please fill out our registration form"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
