@@ -1,4 +1,4 @@
-package hr.foi.restoranko;
+package hr.foi.webservice;
 
 import org.junit.Test;
 

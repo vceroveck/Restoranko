@@ -1,4 +1,4 @@
-package hr.foi.restoranko;
+package hr.foi.webservice;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("hr.foi.restoranko", appContext.getPackageName());
+        assertEquals("hr.foi.webservice.test", appContext.getPackageName());
     }
 }
