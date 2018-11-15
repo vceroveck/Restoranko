@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class Navigation extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +21,6 @@ public class Navigation extends AppCompatActivity {
         setContentView(R.layout.activity_navigation);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
-        logout = (Button) findViewById(R.id.btnLogout);
-
-        logout.setOnClickListener(new View.OnClickListener(){
-
-           public void onClick(View view){
-
-              Logout();
-           }
-
-        });
     }
 
     private void Logout(){

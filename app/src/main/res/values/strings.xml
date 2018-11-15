@@ -6,8 +6,8 @@
     <string name="sign_in">Prijava</string>
     <string name="registration">Registracija</string>
     <string name="con">Continue without sign in</string>
-    <string name="text"> The best way to order food</string>
-    <string name="logo"> Logo</string>
+    <string name="text">The best way to order food</string>
+    <string name="logo">Logo</string>
 
     <!-- activity_registration.xml -->
     <string name="regIme">Ime</string>
@@ -17,6 +17,12 @@
     <string name="regLozinka">Lozinka</string>
     <string name="regPotvrda">Ponovite lozinku</string>
     <string name="regRegistracija">Registriraj se</string>
+
+    <!-- activity_registration.xml -->
+    <string name="prijavaLogo">Logo</string>
+    <string name="prijavaEmail">E-Mail</string>
+    <string name="prijavaLozinka">Lozinka</string>
+    <string name="prijava">Prijavi se</string>
 
 
 </resources>
