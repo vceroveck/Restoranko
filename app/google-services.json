@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "63085762641",
+    "firebase_url": "https://hr-foi-restoranko.firebaseio.com",
+    "project_id": "hr-foi-restoranko",
+    "storage_bucket": "hr-foi-restoranko.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63085762641:android:751bfba6c27f9272",
+        "android_client_info": {
+          "package_name": "hr.foi.restoranko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63085762641-hsc550j03iqihqstdnu6ef8smncgk4qs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWuvWfV6iU6jxe43mc-kW6z1133KuYRqI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
