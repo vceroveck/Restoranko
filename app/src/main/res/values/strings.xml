@@ -24,5 +24,9 @@
     <string name="prijavaLozinka">Lozinka</string>
     <string name="prijava">Prijavi se</string>
 
+    <!-- activity_navigation.xml -->
+    <string name="otvoriNavigacija">Otvori navigaciju</string>
+    <string name="zatvoriNavigacija">Zatvori navigaciju</string>
+
 
 </resources>

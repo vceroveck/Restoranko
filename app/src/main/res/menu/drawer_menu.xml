@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/nav_korisnicki_profil"
+            android:icon="@drawable/korisnicki_profil"
+            android:title="Korisnički profil"/>
+        <item android:id="@+id/nav_notifikacije"
+            android:icon="@drawable/notifikacije"
+            android:title="Notifikacije"/>
+        <item android:id="@+id/nav_odjava"
+            android:icon="@drawable/odjava"
+            android:title="Odjavi se"/>
+
+    </group>
+
+</menu>
