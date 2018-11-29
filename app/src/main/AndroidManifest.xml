@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".controller.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,14 +19,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Registration"
+            android:name=".controller.Registration"
             android:label="Registracija"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".controller.MainActivity" />
         <activity
-            android:name=".LogIn"
+            android:name=".controller.LogIn"
             android:label="Prijava"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".Navigation">
+            android:parentActivityName=".controller.MainActivity" />
+        <activity android:name=".controller.Navigation">
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>

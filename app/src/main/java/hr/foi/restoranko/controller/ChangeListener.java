@@ -1,4 +1,4 @@
-package hr.foi.restoranko.listeners;
+package hr.foi.restoranko.controller;
 
 public interface ChangeListener {
     void onChange();

@@ -16,9 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import hr.foi.restoranko.LogIn;
-import hr.foi.restoranko.R;
-import hr.foi.restoranko.listeners.ChangeListener;
+import hr.foi.restoranko.controller.ChangeListener;
 
 public class Korisnik {
     private String ime;

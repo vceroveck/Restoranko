@@ -1,4 +1,4 @@
-package hr.foi.restoranko;
+package hr.foi.restoranko.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

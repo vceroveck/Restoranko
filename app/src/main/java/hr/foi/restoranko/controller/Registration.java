@@ -1,4 +1,4 @@
-package hr.foi.restoranko;
+package hr.foi.restoranko.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 
 public class Registration extends AppCompatActivity {
