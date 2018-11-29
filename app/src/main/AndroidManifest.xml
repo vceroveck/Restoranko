@@ -26,7 +26,9 @@
             android:name=".LogIn"
             android:label="Prijava"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Navigation"></activity>
+        <activity android:name=".Navigation">
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
