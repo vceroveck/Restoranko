@@ -41,6 +41,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LogoutFragment());
                 Logout();
                 break;
+            case R.id.nav_korisnicki_profil:
+                startActivity(new Intent(Navigation.this, KorisnickiProfil.class));
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
