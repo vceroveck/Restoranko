@@ -29,7 +29,8 @@
         <activity android:name=".controller.Navigation">
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".controller.KorisnickiProfil"></activity>
+        <activity android:name=".controller.KorisnickiProfil" />
+        <activity android:name=".controller.Password"></activity>
     </application>
 
 </manifest>
