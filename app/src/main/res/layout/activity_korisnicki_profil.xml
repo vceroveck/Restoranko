@@ -22,10 +22,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.256" />
 
-    <ImageView
+
+    <ImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imgKorisnik"
-        android:layout_width="203dp"
-        android:layout_height="159dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -66,7 +67,7 @@
         android:layout_marginBottom="8dp"
         android:text="Ime:"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtKorisnikIme"
+        app:layout_constraintEnd_toStartOf="@+id/outputKorisnikIme"
         app:layout_constraintHorizontal_bias="0.784"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -83,7 +84,7 @@
         android:layout_marginBottom="8dp"
         android:text="Prezime:"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtkorisnikPrezime"
+        app:layout_constraintEnd_toStartOf="@+id/outputKorisnikPrezime"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -91,7 +92,7 @@
         tools:text="Prezime:" />
 
     <TextView
-        android:id="@+id/txtKorisnikIme"
+        android:id="@+id/outputKorisnikIme"
         android:layout_width="191dp"
         android:layout_height="31dp"
         android:layout_marginStart="8dp"
@@ -107,7 +108,7 @@
         app:layout_constraintVertical_bias="0.443" />
 
     <TextView
-        android:id="@+id/txtkorisnikPrezime"
+        android:id="@+id/outputKorisnikPrezime"
         android:layout_width="191dp"
         android:layout_height="29dp"
         android:layout_marginStart="8dp"

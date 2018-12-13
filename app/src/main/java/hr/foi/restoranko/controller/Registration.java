@@ -31,8 +31,8 @@ import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 
 public class Registration extends AppCompatActivity {
-    EditText ime,prezime,korime,email,lozinka,plozinka;
-    String imeVrijednost, prezimeVrijednost, korimeVrijednost, emailVrijednost, lozinkaVrijednost;
+    EditText ime,prezime,korime,email,lozinka,plozinka,slika;
+    String imeVrijednost, prezimeVrijednost, korimeVrijednost, emailVrijednost, lozinkaVrijednost, slikaVrijednost;
     Button registracija;
 
     FirebaseAuth auth;
@@ -68,6 +68,7 @@ public class Registration extends AppCompatActivity {
         prezimeVrijednost = prezime.getText().toString();
         korimeVrijednost = korime.getText().toString();
         lozinkaVrijednost = lozinka.getText().toString();
+        slikaVrijednost ="";
 
         emailVrijednost = email.getText().toString();
         Pattern pattern = Pattern.compile("(?=.{10,30}$)^[a-z0-9A-Z]+\\.?[a-z0-9A-Z]*@[a-z0-9A-Z]+(\\.[a-zA-Z]{2,})");
@@ -114,7 +115,7 @@ public class Registration extends AppCompatActivity {
             Toast.makeText(this, "Korisničko ime već postoji u bazi", Toast.LENGTH_LONG).show();
         }
         else {
-            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost);
+            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, slikaVrijednost);
             auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(emailVrijednost, lozinkaVrijednost)
                     .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
