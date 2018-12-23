@@ -69,7 +69,6 @@ public class KorisnickiProfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OdaberiSliku();
-                PostaviSliku();
             }
         });
     }
@@ -147,6 +146,7 @@ public class KorisnickiProfil extends AppCompatActivity {
             catch (Exception e){
                 e.printStackTrace();
             }
+            PostaviSliku();
         }
     }
 }
