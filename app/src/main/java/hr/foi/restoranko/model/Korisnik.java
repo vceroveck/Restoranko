@@ -16,9 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import hr.foi.restoranko.LogIn;
-import hr.foi.restoranko.R;
-import hr.foi.restoranko.listeners.ChangeListener;
+import hr.foi.restoranko.controller.ChangeListener;
 
 public class Korisnik {
     private String ime;
@@ -27,16 +25,19 @@ public class Korisnik {
     private String korisnickoIme;
     private String lozinka;
     public String uId;
+    public String slika;
+
 
     public static Korisnik prijavljeniKorisnik;
     private ChangeListener listener;
 
-    public Korisnik(String ime, String prezime, String email, String korisnickoIme, String lozinka) {
+    public Korisnik(String ime, String prezime, String email, String korisnickoIme, String lozinka, String slika) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
+        this.slika = slika;
         this.uId=null;
     }
 
@@ -83,6 +84,10 @@ public class Korisnik {
         this.lozinka = lozinka;
     }
 
+    public String getSlika() { return slika; }
+
+    public void setSlika(String slika) { this.slika = slika; }
+
     public String getuId() {
         return uId;
     }
@@ -120,7 +125,7 @@ public class Korisnik {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for (DataSnapshot datas : dataSnapshot.getChildren()) {
-                                                Korisnik.prijavljeniKorisnik.setPrijavljeniKorisnik(userID, datas.child("ime").getValue().toString(), datas.child("prezime").getValue().toString(), datas.child("email").getValue().toString(), datas.child("korisnickoIme").getValue().toString(), datas.child("lozinka").getValue().toString());
+                                                Korisnik.prijavljeniKorisnik.setPrijavljeniKorisnik(userID, datas.child("ime").getValue().toString(), datas.child("prezime").getValue().toString(), datas.child("email").getValue().toString(), datas.child("korisnickoIme").getValue().toString(), datas.child("lozinka").getValue().toString(), datas.child("slika").getValue().toString());
                                             }
                                         }
 
@@ -128,6 +133,7 @@ public class Korisnik {
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                         }
                                     });
+
                         }
                         catch (Exception ex){
                             iznimkaPrijava(ex, context);
@@ -152,7 +158,7 @@ public class Korisnik {
         return this.listener;
     }
 
-    private void setPrijavljeniKorisnik(String uId, String ime, String prezime, String email, String korisnickoIme, String lozinka)
+    private void setPrijavljeniKorisnik(String uId, String ime, String prezime, String email, String korisnickoIme, String lozinka, String slika)
     {
         this.uId=uId;
         this.ime=ime;
@@ -160,6 +166,7 @@ public class Korisnik {
         this.email=email;
         this.korisnickoIme=korisnickoIme;
         this.lozinka=lozinka;
+        this.slika=slika;
         if(listener!=null) listener.onChange();
     }
 }

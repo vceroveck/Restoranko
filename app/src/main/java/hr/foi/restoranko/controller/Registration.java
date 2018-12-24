@@ -1,4 +1,4 @@
-package hr.foi.restoranko;
+package hr.foi.restoranko.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,11 +27,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 
 public class Registration extends AppCompatActivity {
-    EditText ime,prezime,korime,email,lozinka,plozinka;
-    String imeVrijednost, prezimeVrijednost, korimeVrijednost, emailVrijednost, lozinkaVrijednost;
+    EditText ime,prezime,korime,email,lozinka,plozinka,slika;
+    String imeVrijednost, prezimeVrijednost, korimeVrijednost, emailVrijednost, lozinkaVrijednost, slikaVrijednost;
     Button registracija;
 
     FirebaseAuth auth;
@@ -67,6 +68,7 @@ public class Registration extends AppCompatActivity {
         prezimeVrijednost = prezime.getText().toString();
         korimeVrijednost = korime.getText().toString();
         lozinkaVrijednost = lozinka.getText().toString();
+        slikaVrijednost ="";
 
         emailVrijednost = email.getText().toString();
         Pattern pattern = Pattern.compile("(?=.{10,30}$)^[a-z0-9A-Z]+\\.?[a-z0-9A-Z]*@[a-z0-9A-Z]+(\\.[a-zA-Z]{2,})");
@@ -78,12 +80,15 @@ public class Registration extends AppCompatActivity {
         }
         else if(lozinkaVrijednost.length() < 8) {
             Toast.makeText(this, "Lozinka mora imati najmanje 8 znakova", Toast.LENGTH_LONG).show();
+            lozinka.setText("");
         }
         else if(!lozinkaVrijednost.equals(plozinka.getText().toString())){
             Toast.makeText(this, "Lozinke nisu iste", Toast.LENGTH_LONG).show();
+            plozinka.setText("");
         }
         else if(!emailProvjera){
             Toast.makeText(this, "E-Mail je neispravan", Toast.LENGTH_LONG).show();
+            email.setText("");
         }
         else {
             //provjeri dal već postoji taj korisnik u bazi, ako ne onda šalji u bazu
@@ -111,9 +116,10 @@ public class Registration extends AppCompatActivity {
 
         if(potvrda) {
             Toast.makeText(this, "Korisničko ime već postoji u bazi", Toast.LENGTH_LONG).show();
+            korime.setText("");
         }
         else {
-            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost);
+            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, "");
             auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(emailVrijednost, lozinkaVrijednost)
                     .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {

@@ -9,11 +9,4 @@
     android:title="Odjavi se">
 </item>
 
-    <item
-        android:id="@+id/settingMenu"
-        android:orderInCategory="200"
-        app:showAsAction="never"
-        android:title="Postavke">
-    </item>
-
 </menu>
