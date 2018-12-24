@@ -119,7 +119,7 @@ public class Registration extends AppCompatActivity {
             korime.setText("");
         }
         else {
-            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, slikaVrijednost);
+            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, "");
             auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(emailVrijednost, lozinkaVrijednost)
                     .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {

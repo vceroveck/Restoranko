@@ -27,6 +27,7 @@ public class Korisnik {
     public String uId;
     public String slika;
 
+
     public static Korisnik prijavljeniKorisnik;
     private ChangeListener listener;
 
@@ -132,6 +133,7 @@ public class Korisnik {
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
                                         }
                                     });
+
                         }
                         catch (Exception ex){
                             iznimkaPrijava(ex, context);
