@@ -27,13 +27,8 @@ import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 
 public class KorisnickiProfil extends AppCompatActivity {
-
     private static final int PICK_IMAGE = 1;
-    private Button forgotPassword;
-    private Button promijeniSlikuProfila;
     ImageView slikaProfila;
-
-    boolean isImageFitToScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +39,8 @@ public class KorisnickiProfil extends AppCompatActivity {
 
         UcitajKorisnickePodatke();
 
-        forgotPassword = (Button)findViewById(R.id.btnPromijenitiLozinku);
-        promijeniSlikuProfila = (Button) findViewById(R.id.btnPromijenitiSlikuProfila);
+        Button forgotPassword = (Button) findViewById(R.id.btnPromijenitiLozinku);
+        Button promijeniSlikuProfila = (Button) findViewById(R.id.btnPromijenitiSlikuProfila);
 
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +58,7 @@ public class KorisnickiProfil extends AppCompatActivity {
         });
     }
 
-    private void PostaviSliku() {
+    private void PostaviSliku(Uri filePath) {
         FirebaseStorage storage;
         StorageReference storageReference;
 
@@ -72,7 +67,7 @@ public class KorisnickiProfil extends AppCompatActivity {
 
         if(filePath!=null){
             final ProgressDialog progressDialog=new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
+            progressDialog.setTitle("Uploading... ");
             progressDialog.show();
             final String putanjaUPohrani="images/"+Korisnik.prijavljeniKorisnik.getKorisnickoIme();
 
@@ -98,34 +93,14 @@ public class KorisnickiProfil extends AppCompatActivity {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                             double progress=(100.0*taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Uploaded"+(int)progress+"%");
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
         }
     }
 
     private void  UcitajKorisnickePodatke(){
-
-
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl(Korisnik.prijavljeniKorisnik.getSlika());
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getBaseContext())
-                        .load(uri)
-                        .centerCrop()
-                        .into(slikaProfila);
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        e.printStackTrace();
-                    }
-                });
-
+        Slika.postaviSlikuUImageView(Korisnik.prijavljeniKorisnik.getSlika(), slikaProfila, getBaseContext());
         TextView Ime = (TextView) findViewById(R.id.outputKorisnikIme);
         TextView Prezime = (TextView) findViewById(R.id.outputKorisnikPrezime);
         Ime.setText(Korisnik.prijavljeniKorisnik.getIme());
@@ -134,10 +109,6 @@ public class KorisnickiProfil extends AppCompatActivity {
 
 
     }
-
-
-    private Uri filePath;
-    private ImageView imageView;
 
     private void OdaberiSliku(){
         Intent intent=new Intent();
@@ -148,6 +119,8 @@ public class KorisnickiProfil extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri filePath;
+        ImageView imageView;
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==PICK_IMAGE && resultCode ==RESULT_OK && data!=null && data.getData()!=null){
             filePath = data.getData();
@@ -155,13 +128,12 @@ public class KorisnickiProfil extends AppCompatActivity {
                 imageView = (ImageView) findViewById(R.id.imgKorisnik);
                 imageView.setImageURI(null);
                 imageView.setImageURI(filePath);
-                Log.i("URISET", filePath.toString());
                 imageView.refreshDrawableState();
             }
             catch (Exception e){
                 e.printStackTrace();
             }
-            PostaviSliku();
+            PostaviSliku(filePath);
         }
     }
 }
