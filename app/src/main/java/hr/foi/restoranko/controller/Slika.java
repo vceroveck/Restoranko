@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -11,6 +12,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -45,6 +50,7 @@ public class Slika {
     {
         Glide.with(context)
                 .load(slika.getUriSlike())
+                .asBitmap()
                 .centerCrop()
                 .into(imageView);
     }
@@ -54,7 +60,7 @@ public class Slika {
         final Slika slika=new Slika();
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReferenceFromUrl(Korisnik.prijavljeniKorisnik.getPutanjaSlike());
+        StorageReference storageReference = storage.getReferenceFromUrl(korisnik.getPutanjaSlike());
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -67,8 +73,27 @@ public class Slika {
                         e.printStackTrace();
                     }
                 });
-
         return slika;
+    }
+
+    public void dohvatiSlikuKorisnika(Korisnik korisnik, SuccessListener listener){
+        final Slika slika=new Slika();
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(korisnik.getPutanjaSlike());
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                slika.setUriSlike(uri);
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+        listener.addOnSuccessListener(slika);
     }
 
     public static void PohraniSlikuUbazu(Slika slika, final Context context, Activity activityContext)

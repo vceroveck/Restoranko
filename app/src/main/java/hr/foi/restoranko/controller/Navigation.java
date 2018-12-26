@@ -2,6 +2,7 @@ package hr.foi.restoranko.controller;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -17,7 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import hr.foi.restoranko.R;
@@ -143,8 +149,22 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         mAdapter = new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, items);
         mDrawerList.setAdapter(mAdapter);
 
-        View header=getLayoutInflater().inflate(R.layout.listview_item_header, null);
-        ((ImageView) header.findViewById(R.id.imgViewIcon)).setImageDrawable(getResources().getDrawable(R.drawable.logo1));
+        final View header=getLayoutInflater().inflate(R.layout.listview_item_header, null);
+        final ImageView slikaProfila = ((ImageView) header.findViewById(R.id.imgViewIcon));
+
+
+        final Slika slika = new Slika();
+
+        slika.dohvatiSlikuKorisnika(Korisnik.prijavljeniKorisnik, new SuccessListener() {
+            @Override
+            public void addOnSuccessListener(Object object) {
+                Toast.makeText(Navigation.this, object.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(header.getContext(), "NNNN", Toast.LENGTH_LONG).show();
+                Slika.postaviSlikuUImageView((Slika) object, slikaProfila, header.getContext());
+                slikaProfila.refreshDrawableState();
+            }
+        });
+
         ((TextView) header.findViewById(R.id.txtViewName)).setText(Korisnik.prijavljeniKorisnik.getIme()+" "+Korisnik.prijavljeniKorisnik.getPrezime());
         mDrawerList.addHeaderView(header);
 
