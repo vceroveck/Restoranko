@@ -46,6 +46,7 @@ public class KorisnickiProfil extends AppCompatActivity {
 
     private void PostaviSliku(Uri filePath) {
         Slika slika = new Slika(filePath);
+        Korisnik.prijavljeniKorisnik.setSlika(slika);
         Slika.postaviSlikuUImageView(slika, slikaProfila, getBaseContext());
         Slika.PohraniSlikuUbazu(slika, getBaseContext(), KorisnickiProfil.this);
     }

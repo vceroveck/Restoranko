@@ -158,8 +158,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         slika.dohvatiSlikuKorisnika(Korisnik.prijavljeniKorisnik, new SuccessListener() {
             @Override
             public void addOnSuccessListener(Object object) {
-                Toast.makeText(Navigation.this, object.toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(header.getContext(), "NNNN", Toast.LENGTH_LONG).show();
                 Slika.postaviSlikuUImageView((Slika) object, slikaProfila, header.getContext());
                 slikaProfila.refreshDrawableState();
             }
