@@ -9,8 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.view.LogoutFragment;
@@ -31,6 +36,17 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //postavljanje spinnera
+        Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
+        List<String> categories = new ArrayList<String>();
+        categories.add("SORTIRAJ");
+        categories.add("Najviše pregleda");
+        categories.add("Najviše oznaka 'omiljeno'");
+        categories.add("Najbolje ocijenjeni");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
     }
 
     @Override

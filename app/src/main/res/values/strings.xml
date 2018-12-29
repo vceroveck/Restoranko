@@ -27,6 +27,6 @@
     <!-- activity_navigation.xml -->
     <string name="otvoriNavigacija">Otvori navigaciju</string>
     <string name="zatvoriNavigacija">Zatvori navigaciju</string>
-
+    <string name="restoranSlika">Slika trgovine</string>
 
 </resources>
