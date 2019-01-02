@@ -7,10 +7,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +30,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     private FirebaseAuth firebaseAuth;
     private DrawerLayout drawer;
+    private LinearLayout container;
+    private View ucitavanje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +41,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         firebaseAuth = FirebaseAuth.getInstance();
 
         drawer = findViewById(R.id.drawer_layout);
+        container = (LinearLayout) findViewById(R.id.container);
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //postavljanje spinnera
+        //postavljanje padajućeg izbornika
         Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
         List<String> categories = new ArrayList<String>();
         categories.add("SORTIRAJ");
@@ -47,6 +57,40 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        //testni ispis restorana
+        LayoutInflater li = LayoutInflater.from(this);
+        ucitavanje = li.inflate(R.layout.loading, null, false);
+        container.addView(ucitavanje);
+        UcitajRestorane();
+    }
+
+    private void UcitajRestorane() {
+        container.removeView(ucitavanje);
+        for(int i = 0; i<20 ; i++){
+            LayoutInflater li = LayoutInflater.from(this);
+            View divider = li.inflate(R.layout.restorani, null, false);
+            TextView textView = (TextView) divider.findViewById(R.id.restoran_naziv);
+            textView.setText("Restoran " + i);
+
+            //uglavnom kombiniraj nešto s id
+//            divider.setId(i);
+            final int id = i;
+
+            divider.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Intent intent = new Intent(Navigation.this, RestaurantDetails.class);
+                    Bundle b = new Bundle();
+                    b.putInt("key", id); //Your id
+                    intent.putExtras(b); //Put your id to your next Intent
+                    startActivity(intent);
+                }
+            });
+
+            container.addView(divider);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+            divider.startAnimation(animation);
+        }
     }
 
     @Override

@@ -44,8 +44,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(v.getContext(), LogIn.class));
             }
         });
-
-
-
     }
 }
