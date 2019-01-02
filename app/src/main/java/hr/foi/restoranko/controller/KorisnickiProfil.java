@@ -1,44 +1,33 @@
 package hr.foi.restoranko.controller;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.autofill.AutofillValue;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
-
-import java.io.InputStream;
-import java.net.URL;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 
 public class KorisnickiProfil extends AppCompatActivity {
-
-    private Button forgotPassword;
+    private static final int PICK_IMAGE = 1;
+    ImageView slikaProfila;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_korisnicki_profil);
 
+        slikaProfila = (ImageView) findViewById(R.id.imgKorisnik);
+
         UcitajKorisnickePodatke();
 
-        forgotPassword = (Button)findViewById(R.id.btnPromijenitiLozinku);
+        Button forgotPassword = (Button) findViewById(R.id.btnPromijenitiLozinku);
+        Button promijeniSlikuProfila = (Button) findViewById(R.id.btnPromijenitiSlikuProfila);
+
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,20 +35,57 @@ public class KorisnickiProfil extends AppCompatActivity {
                 startActivity(new Intent(KorisnickiProfil.this, Password.class));
             }
         });
+
+        promijeniSlikuProfila.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OdaberiSliku();
+            }
+        });
+    }
+
+    private void PostaviSliku(Uri filePath) {
+        Slika slika = new Slika(filePath);
+        Korisnik.prijavljeniKorisnik.setSlika(slika);
+        Slika.postaviSlikuUImageView(slika, slikaProfila, getBaseContext());
+        Slika.PohraniSlikuUbazu(slika, getBaseContext(), KorisnickiProfil.this);
     }
 
     private void  UcitajKorisnickePodatke(){
+        Slika.postaviSlikuUImageView(Korisnik.prijavljeniKorisnik.getSlika(), slikaProfila, getBaseContext());
         TextView Ime = (TextView) findViewById(R.id.outputKorisnikIme);
         TextView Prezime = (TextView) findViewById(R.id.outputKorisnikPrezime);
-        ImageView slikaProfila = (ImageView) findViewById(R.id.imgKorisnik);
-
         Ime.setText(Korisnik.prijavljeniKorisnik.getIme());
         Prezime.setText(Korisnik.prijavljeniKorisnik.getPrezime());
-        Picasso.get().load(Korisnik.prijavljeniKorisnik.getSlika()).into(slikaProfila);
+
 
 
     }
 
+    private void OdaberiSliku(){
+        Intent intent=new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,  "Odaberi sliku"), PICK_IMAGE);
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri filePath;
+        ImageView imageView;
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==PICK_IMAGE && resultCode ==RESULT_OK && data!=null && data.getData()!=null){
+            filePath = data.getData();
+            try{
+                imageView = (ImageView) findViewById(R.id.imgKorisnik);
+                imageView.setImageURI(null);
+                imageView.setImageURI(filePath);
+                imageView.refreshDrawableState();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            PostaviSliku(filePath);
+        }
+    }
 }
