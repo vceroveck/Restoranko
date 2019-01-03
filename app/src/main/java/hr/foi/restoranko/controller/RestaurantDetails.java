@@ -5,12 +5,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.model.OmiljeniRestoran;
 import hr.foi.restoranko.model.Restoran;
 
 public class RestaurantDetails extends AppCompatActivity {
     private Menu traka;
     private Restoran restoran;
+    private OmiljeniRestoran omiljeniRestoran;
+    private DatabaseReference mDatabase;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +30,8 @@ public class RestaurantDetails extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_details);
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
+        omiljeniRestoran = new OmiljeniRestoran(restoran.getRestoranId(), Korisnik.prijavljeniKorisnik.getKorisnickoIme());
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         setTitle(restoran.getNazivRestorana());
     }
@@ -28,10 +42,35 @@ public class RestaurantDetails extends AppCompatActivity {
         traka = menu;
         getMenuInflater().inflate(R.menu.zvijezdica, menu);
 
-        //provjeri jeli ti omiljeno
-        //ako je onda ovo prvo
-        //ako ne onda ovo drugo
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("omiljeniRestorani");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean omiljeni = false;
+                long idNasegRestorana = omiljeniRestoran.getRestoran();
+                String prijavljenKorisnik = omiljeniRestoran.getKorisnik();
 
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+
+                    long idRestorana = (long) datas.child("restoran").getValue();
+                    String korisnik = datas.child("korisnik").getValue().toString();
+
+                    if(korisnik.equals(prijavljenKorisnik) && idRestorana == idNasegRestorana) {
+                        key = datas.getKey();
+                        omiljeni = true;
+                    }
+
+                }
+                if(omiljeni) {
+                    traka.findItem(R.id.star).setVisible(true);
+                    traka.findItem(R.id.star2).setVisible(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
         return true;
     }
 
@@ -46,7 +85,8 @@ public class RestaurantDetails extends AppCompatActivity {
                 traka.findItem(R.id.star2).setVisible(true);
                 Toast.makeText(this, "Restoran izbrisan iz favorita", Toast.LENGTH_LONG).show();
 
-                //baza
+                mDatabase.child("omiljeniRestorani").child(key).removeValue();
+                key = null;
 
                 break;
             }
@@ -56,7 +96,8 @@ public class RestaurantDetails extends AppCompatActivity {
                 traka.findItem(R.id.star).setVisible(true);
                 Toast.makeText(this, "Restoran dodan u favorite", Toast.LENGTH_LONG).show();
 
-                //baza
+                key = mDatabase.push().getKey();
+                mDatabase.child("omiljeniRestorani").child(key).setValue(omiljeniRestoran);
 
                 break;
             }
