@@ -18,12 +18,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     private ListView mDrawerList;
     private ArrayAdapter<Object> mAdapter;
+    private SearchView pretraga;
     private List<Restoran> listaRestorana = new ArrayList<>();
 
     @Override
@@ -75,19 +78,15 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        LayoutInflater li = LayoutInflater.from(this);
-        ucitavanje = li.inflate(R.layout.loading, null, false);
-        container.addView(ucitavanje);
-
-        PostaviPadajuciIzbornik();
+        
+        PostaviElementeIzbornika();
         DohvatiSveRestorane();
 
-        container.removeView(ucitavanje);
     }
 
-    private void PostaviPadajuciIzbornik() {
+    private void PostaviElementeIzbornika() {
         Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
+        pretraga = (SearchView)findViewById(R.id.pretraga);
         List<String> categories = new ArrayList<String>();
         categories.add("SORTIRAJ");
         categories.add("Najviše pregleda");
@@ -97,6 +96,27 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        pretraga.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String tekst) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String tekst) {
+                PretragaRestorana(tekst);
+                return true;
+            }
+        });
+    }
+
+    private void PretragaRestorana(String tekst) {
+        container.removeAllViews();
+        for(int i = 0; i<listaRestorana.size(); i++) {
+            Restoran restoran = listaRestorana.get(i);
+            if(restoran.getNazivRestorana().toLowerCase().contains(tekst.toLowerCase())) PrikaziRestoran(restoran);
+        }
     }
 
     //Metoda koja dohvaća restorane iz baze
@@ -163,8 +183,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         });
 
         container.addView(divider);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
-        divider.startAnimation(animation);
     }
 
     @Override
