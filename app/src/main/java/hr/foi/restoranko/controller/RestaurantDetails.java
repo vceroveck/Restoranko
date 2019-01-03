@@ -5,23 +5,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Restoran;
 
 public class RestaurantDetails extends AppCompatActivity {
     private Menu traka;
+    private Restoran restoran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
 
-        Bundle b = getIntent().getExtras();
-        int value = -1; // or other values
-        if(b != null) value = b.getInt("key");
+        restoran = getIntent().getExtras().getParcelable("restoranko");
 
-        //postavi naslov kao naziv restorana
-        setTitle(String.valueOf(value));
+        setTitle(restoran.getNazivRestorana());
     }
 
     //provjeri je li restoran označen kao favorit

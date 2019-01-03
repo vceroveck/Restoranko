@@ -2,7 +2,7 @@ package hr.foi.restoranko.controller;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,7 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,27 +21,26 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.model.Restoran;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -56,6 +54,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     private ListView mDrawerList;
     private ArrayAdapter<Object> mAdapter;
+    private List<Restoran> listaRestorana = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +70,23 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
-
         addDrawerItems();
         setupDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        //postavljanje padajućeg izbornika
+        LayoutInflater li = LayoutInflater.from(this);
+        ucitavanje = li.inflate(R.layout.loading, null, false);
+        container.addView(ucitavanje);
+
+        PostaviPadajuciIzbornik();
+        DohvatiSveRestorane();
+
+        container.removeView(ucitavanje);
+    }
+
+    private void PostaviPadajuciIzbornik() {
         Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
         List<String> categories = new ArrayList<String>();
         categories.add("SORTIRAJ");
@@ -89,40 +97,74 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
-
-        //testni ispis restorana
-        LayoutInflater li = LayoutInflater.from(this);
-        ucitavanje = li.inflate(R.layout.loading, null, false);
-        container.addView(ucitavanje);
-        UcitajRestorane();
     }
 
-    private void UcitajRestorane() {
-        container.removeView(ucitavanje);
-        for(int i = 0; i<20 ; i++){
-            LayoutInflater li = LayoutInflater.from(this);
-            View divider = li.inflate(R.layout.restorani, null, false);
-            TextView textView = (TextView) divider.findViewById(R.id.restoran_naziv);
-            textView.setText("Restoran " + i);
+    //Metoda koja dohvaća restorane iz baze
+    private void DohvatiSveRestorane() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("restoran");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
 
-            //uglavnom kombiniraj nešto s id
-//            divider.setId(i);
-            final int id = i;
+                    long _id = (long) datas.child("restoranId").getValue();
+                    String _adresa = datas.child("adresa").getValue().toString();
+                    String _kontakt = datas.child("kontakt").getValue().toString();
+                    String _naziv = datas.child("nazivRestorana").getValue().toString();
+                    String _opis = datas.child("opis").getValue().toString();
+                    String _slika = datas.child("slika").getValue().toString();
+                    String _link = datas.child("webLink").getValue().toString();
 
-            divider.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    Intent intent = new Intent(Navigation.this, RestaurantDetails.class);
-                    Bundle b = new Bundle();
-                    b.putInt("key", id); //Your id
-                    intent.putExtras(b); //Put your id to your next Intent
-                    startActivity(intent);
+                    final Restoran novi = new Restoran(_id, _adresa, _kontakt, _naziv, _opis, _slika, _link);
+                    listaRestorana.add(novi);
+                    DohvatiSlikuRestorana(novi);
                 }
-            });
+            }
 
-            container.addView(divider);
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
-            divider.startAnimation(animation);
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    //Metoda koja dohvaća sliku restorana
+    private void DohvatiSlikuRestorana(final Restoran restoran) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(restoran.getSlika());
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Slika slika = new Slika ();
+                slika.setUriSlike(uri);
+                restoran.setSlikaRestorana(slika);
+                PrikaziRestoran(restoran);
+            }
+        });
+    }
+
+    //Metoda kojom se restoran prikazuje na zaslonu
+    private void PrikaziRestoran(final Restoran restoran) {
+        LayoutInflater li = LayoutInflater.from(this);
+        View divider = li.inflate(R.layout.restorani, null, false);
+
+        TextView textView = (TextView) divider.findViewById(R.id.restoran_naziv);
+        textView.setText(restoran.getNazivRestorana());
+
+        final ImageView slikaRestorana = (ImageView) divider.findViewById(R.id.restoran_slika);
+        Slika.postaviSlikuUImageView(restoran.getSlikaRestorana(), slikaRestorana, getBaseContext());
+
+        divider.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+
+                Intent intent = new Intent(Navigation.this, RestaurantDetails.class);
+                intent.putExtra("restoranko", restoran);
+                startActivity(intent);
+            }
+        });
+
+        container.addView(divider);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.slide_up);
+        divider.startAnimation(animation);
     }
 
     @Override
