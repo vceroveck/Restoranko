@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.model.Restoran;
 
 public class Slika {
     private Uri uriSlike;

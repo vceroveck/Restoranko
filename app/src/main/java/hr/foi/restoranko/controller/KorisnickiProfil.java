@@ -57,9 +57,6 @@ public class KorisnickiProfil extends AppCompatActivity {
         TextView Prezime = (TextView) findViewById(R.id.outputKorisnikPrezime);
         Ime.setText(Korisnik.prijavljeniKorisnik.getIme());
         Prezime.setText(Korisnik.prijavljeniKorisnik.getPrezime());
-
-
-
     }
 
     private void OdaberiSliku(){
