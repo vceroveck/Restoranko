@@ -1,16 +1,22 @@
 package hr.foi.restoranko.controller;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
@@ -24,16 +30,42 @@ public class RestaurantDetails extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String key;
 
+    ImageView slikaRestorana;
+    TextView opis, adresa, kontakt, webAdresa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_details);
+
+        slikaRestorana = (ImageView) findViewById(R.id.restoran_slika);
+        opis = (TextView) findViewById(R.id.restoran_opis);
+        adresa = (TextView) findViewById(R.id.restoran_adresa);
+        kontakt = (TextView) findViewById(R.id.restoran_kontakt);
+        webAdresa = (TextView) findViewById(R.id.restoran_webAdresa);
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
         omiljeniRestoran = new OmiljeniRestoran(restoran.getRestoranId(), Korisnik.prijavljeniKorisnik.getKorisnickoIme());
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         setTitle(restoran.getNazivRestorana());
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(restoran.getSlika());
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Slika slika = new Slika ();
+                slika.setUriSlike(uri);
+                restoran.setSlikaRestorana(slika);
+                Slika.postaviSlikuUImageView(restoran.getSlikaRestorana(), slikaRestorana, getBaseContext());
+            }
+        });
+
+        opis.setText(restoran.getOpis());
+        adresa.setText(restoran.getAdresa());
+        kontakt.setText(restoran.getKontakt());
+        webAdresa.setText(restoran.getWebLink());
     }
 
     //provjeri je li restoran označen kao favorit

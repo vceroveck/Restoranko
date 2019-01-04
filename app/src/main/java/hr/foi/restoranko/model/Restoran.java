@@ -2,9 +2,6 @@ package hr.foi.restoranko.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
-
 import hr.foi.restoranko.controller.Slika;
 
 @SuppressLint("ParcelCreator")
