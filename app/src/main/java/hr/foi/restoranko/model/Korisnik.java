@@ -132,7 +132,7 @@ public class Korisnik {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             for (DataSnapshot datas : dataSnapshot.getChildren()) {
-                                                Korisnik.prijavljeniKorisnik.setPrijavljeniKorisnik(userID, datas.child("ime").getValue().toString(), datas.child("prezime").getValue().toString(), datas.child("email").getValue().toString(), datas.child("korisnickoIme").getValue().toString(), datas.child("lozinka").getValue().toString(), datas.child("slika").getValue().toString(), null);
+                                                Korisnik.prijavljeniKorisnik.setPrijavljeniKorisnik(userID, datas.child("ime").getValue().toString(), datas.child("prezime").getValue().toString(), datas.child("email").getValue().toString(), datas.child("korisnickoIme").getValue().toString(), datas.child("lozinka").getValue().toString(), datas.child("putanjaSlike").getValue().toString(), null);
                                                 Slika slika= Slika.dohvatiSlikuKorisnika(Korisnik.prijavljeniKorisnik);
                                                 Korisnik.prijavljeniKorisnik.setSlika(slika);
                                             }

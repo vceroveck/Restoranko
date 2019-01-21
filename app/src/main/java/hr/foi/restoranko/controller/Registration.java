@@ -119,7 +119,7 @@ public class Registration extends AppCompatActivity {
             korime.setText("");
         }
         else {
-            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, "", null);
+            final Korisnik korisnik = new Korisnik(imeVrijednost, prezimeVrijednost, emailVrijednost, korimeVrijednost, lozinkaVrijednost, "gs://hr-foi-restoranko.appspot.com/images/default.png", null);
             auth = FirebaseAuth.getInstance();
             auth.createUserWithEmailAndPassword(emailVrijednost, lozinkaVrijednost)
                     .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
