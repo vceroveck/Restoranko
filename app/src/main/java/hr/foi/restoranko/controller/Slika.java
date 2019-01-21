@@ -119,7 +119,7 @@ public class Slika {
                             progressDialog.dismiss();
                             Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("slika").setValue("gs://hr-foi-restoranko.appspot.com/"+putanjaUPohrani);
+                            databaseReference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("putanjaSlike").setValue("gs://hr-foi-restoranko.appspot.com/"+putanjaUPohrani);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
