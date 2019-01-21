@@ -46,6 +46,7 @@ public class KorisnickiProfil extends AppCompatActivity {
 
     private void PostaviSliku(Uri filePath) {
         Slika slika = new Slika(filePath);
+        Korisnik.prijavljeniKorisnik.setSlika(slika);
         Slika.postaviSlikuUImageView(slika, slikaProfila, getBaseContext());
         Slika.PohraniSlikuUbazu(slika, getBaseContext(), KorisnickiProfil.this);
     }
@@ -56,9 +57,6 @@ public class KorisnickiProfil extends AppCompatActivity {
         TextView Prezime = (TextView) findViewById(R.id.outputKorisnikPrezime);
         Ime.setText(Korisnik.prijavljeniKorisnik.getIme());
         Prezime.setText(Korisnik.prijavljeniKorisnik.getPrezime());
-
-
-
     }
 
     private void OdaberiSliku(){

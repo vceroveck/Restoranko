@@ -27,6 +27,11 @@
     <!-- activity_navigation.xml -->
     <string name="otvoriNavigacija">Otvori navigaciju</string>
     <string name="zatvoriNavigacija">Zatvori navigaciju</string>
+    <string name="restoranSlika">Slika trgovine</string>
 
+    <!-- activity_restaurant_details.xml -->
+    <string name="restoranAdresa">Adresa:</string>
+    <string name="restoranKontakt">Kontakt:</string>
+    <string name="restoranWebAdresa">Web adresa:</string>
 
 </resources>

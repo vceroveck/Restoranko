@@ -30,7 +30,9 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".controller.KorisnickiProfil" />
-        <activity android:name=".controller.Password"></activity>
+        <activity android:name=".controller.Password" />
+        <activity android:name=".controller.RestaurantDetails" />
+
     </application>
 
 </manifest>
