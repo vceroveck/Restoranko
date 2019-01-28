@@ -1,1 +1,1 @@
-include ':app', ':webservice'
+include ':app', ':graphicDisplayOfTable'

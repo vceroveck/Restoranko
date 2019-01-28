@@ -18,16 +18,18 @@
     <string name="regPotvrda">Ponovite lozinku</string>
     <string name="regRegistracija">Registriraj se</string>
 
-    <!-- activity_registration.xml -->
+    <!-- activity_log_in.xml -->
     <string name="prijavaLogo">Logo</string>
     <string name="prijavaEmail">E-Mail</string>
     <string name="prijavaLozinka">Lozinka</string>
+    <string name="spremiPrijavu">Ostanite prijavljeni na ovom uređaju</string>
     <string name="prijava">Prijavi se</string>
 
     <!-- activity_navigation.xml -->
     <string name="otvoriNavigacija">Otvori navigaciju</string>
     <string name="zatvoriNavigacija">Zatvori navigaciju</string>
     <string name="restoranSlika">Slika trgovine</string>
+    <string name="pretragaRestorana">Pretraži restorane</string>
 
     <!-- activity_restaurant_details.xml -->
     <string name="restoranAdresa">Adresa:</string>

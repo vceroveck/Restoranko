@@ -11,15 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <CheckBox
+            android:id="@+id/spremitiPrijavu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/spremiPrijavu"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/common_google_signin_btn_text_light_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLozinka" />
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="182dp"
             android:layout_height="162dp"
-            android:layout_marginTop="49dp"
-            android:layout_marginEnd="68dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="@string/prijavaLogo"
-            app:layout_constraintEnd_toEndOf="@+id/txtEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo1" />
 
@@ -62,9 +77,9 @@
             android:layout_marginEnd="24dp"
             android:text="@string/prijava"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtLozinka" />
+            app:layout_constraintTop_toBottomOf="@+id/spremitiPrijavu" />
 
     </android.support.constraint.ConstraintLayout>
 

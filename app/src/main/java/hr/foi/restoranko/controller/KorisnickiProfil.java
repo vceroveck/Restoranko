@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.view.Slika;
 
 public class KorisnickiProfil extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;

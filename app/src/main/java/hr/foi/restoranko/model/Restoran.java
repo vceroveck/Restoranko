@@ -2,7 +2,7 @@ package hr.foi.restoranko.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import hr.foi.restoranko.controller.Slika;
+import hr.foi.restoranko.view.Slika;
 
 @SuppressLint("ParcelCreator")
 public class Restoran implements Parcelable {
