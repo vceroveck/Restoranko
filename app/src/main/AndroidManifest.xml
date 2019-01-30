@@ -32,7 +32,8 @@
         <activity android:name=".controller.KorisnickiProfil" />
         <activity android:name=".controller.Password" />
         <activity android:name=".controller.RestaurantDetails" />
-        <activity android:name=".controller.Menu"></activity>
+        <activity android:name=".controller.Menu" />
+        <activity android:name=".controller.Rezervacija"></activity>
     </application>
 
 </manifest>

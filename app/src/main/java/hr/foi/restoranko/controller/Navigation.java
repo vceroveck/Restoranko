@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.view.Slika;
@@ -49,7 +50,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private FirebaseAuth firebaseAuth;
     private DrawerLayout drawer;
     private LinearLayout container;
-    private View ucitavanje;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
@@ -65,6 +65,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_navigation);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        Jelo jelo = new Jelo();
 
         drawer = findViewById(R.id.drawer_layout);
         container = (LinearLayout) findViewById(R.id.container);

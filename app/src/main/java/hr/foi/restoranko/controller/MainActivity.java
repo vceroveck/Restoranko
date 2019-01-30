@@ -8,14 +8,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.view.ChangeListener;
 
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Aplikacija zahtjeva pristup internetu", Toast.LENGTH_LONG).show();
             finish();
         }
-        Jelo jelo = new Jelo();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String email = preferences.getString("email", "");

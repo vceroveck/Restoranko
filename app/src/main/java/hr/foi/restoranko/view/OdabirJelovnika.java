@@ -1,15 +1,11 @@
 package hr.foi.restoranko.view;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,16 +16,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.Iterator;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.controller.Navigation;
-import hr.foi.restoranko.controller.RestaurantDetails;
 import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Jelovnik;
-import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.model.RezerviraniJelovnik;
 
 public class OdabirJelovnika extends Fragment {
