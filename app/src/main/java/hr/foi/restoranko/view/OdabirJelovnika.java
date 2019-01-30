@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,12 +22,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.Iterator;
+
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.controller.Navigation;
 import hr.foi.restoranko.controller.RestaurantDetails;
 import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Jelovnik;
 import hr.foi.restoranko.model.Restoran;
+import hr.foi.restoranko.model.RezerviraniJelovnik;
 
 public class OdabirJelovnika extends Fragment {
     private LinearLayout kontejner;
@@ -76,20 +80,47 @@ public class OdabirJelovnika extends Fragment {
 
     private void PrikaziJelovnik(final Jelovnik jelovnik) {
         LayoutInflater li = LayoutInflater.from(getView().getContext());
-        View divider = li.inflate(R.layout.jelovnik, null, false);
+        final View divider = li.inflate(R.layout.jelovnik, null, false);
 
-
-        TextView nazivJelovnika = (TextView) divider.findViewById(R.id.nazivJelovnika);
+        final TextView nazivJelovnika = (TextView) divider.findViewById(R.id.nazivJelovnika);
         nazivJelovnika.setText(jelovnik.getNaziv());
         TextView cijena = (TextView) divider.findViewById(R.id.cijena);
-        cijena.setText(cijena.getText() + " " + jelovnik.getCijena() + " kn");
+        cijena.setText(" " + cijena.getText() + " " + String.format("%.2f" , Double.valueOf(jelovnik.getCijena())) + " kn");
+        final Button odabir = (Button) divider.findViewById(R.id.gumb);
 
-        //final TextView ispisJela = (TextView) divider.findViewById(R.id.ispisJela);
-        //final String[] svaJela = {null};
+        Iterator<RezerviraniJelovnik> it = RezerviraniJelovnik.listaRezerviranihJela.iterator();
+        while (it.hasNext()) {
+            RezerviraniJelovnik rj2 = it.next();
+            if (rj2.getJelovnik().getJelovnikId() == jelovnik.getJelovnikId()) {
+                odabir.setText(R.string.ukloniOdabir);
+            }
+        }
 
+        odabir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(odabir.getText().equals(getString(R.string.odaberiJelovnik))) {
+                    odabir.setText(getString(R.string.ukloniOdabir));
+                    RezerviraniJelovnik.DodajUListu(jelovnik, 1);
+                    Toast.makeText(getView().getContext(), "Jelovnik " + nazivJelovnika.getText() + " je dodan u rezervaciju", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    odabir.setText(getString(R.string.odaberiJelovnik));
+                    Toast.makeText(getView().getContext(), "Jelovnik " + nazivJelovnika.getText() + " je uklonjen iz rezervacije", Toast.LENGTH_SHORT).show();
+
+                    Iterator<RezerviraniJelovnik> it = RezerviraniJelovnik.listaRezerviranihJela.iterator();
+                    while (it.hasNext()) {
+                        RezerviraniJelovnik rj2 = it.next();
+                        if (rj2.getJelovnik().getJelovnikId() == jelovnik.getJelovnikId()) {
+                            it.remove();
+                        }
+                    }
+                }
+            }
+        });
 
         kontejner.addView(divider);
-/*
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("jeloNaJelovniku");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -97,10 +128,7 @@ public class OdabirJelovnika extends Fragment {
                 for(DataSnapshot datas: dataSnapshot.getChildren()){
                     if((long) datas.child("jelovnikId").getValue() == jelovnik.getJelovnikId()) {
                         long _id = (long) datas.child("jeloId").getValue();
-
-                        svaJela[0] += Jelo.vratiNazivJela(_id) + "\n";
-
-                        ispisJela.setText(svaJela[0]);
+                        PrikaziJelo(Jelo.vratiNazivJela(_id) + "\n", divider);
                     }
                 }
             }
@@ -108,7 +136,16 @@ public class OdabirJelovnika extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });*/
+        });
+    }
+
+    private void PrikaziJelo(String nazivJela, View divider) {
+        kontejner.removeView(divider);
+
+        TextView ispisJela = (TextView) divider.findViewById(R.id.ispisJela);
+        ispisJela.setText(ispisJela.getText() + nazivJela);
+
+        kontejner.addView(divider);
     }
 
 }
