@@ -1,9 +1,11 @@
 package hr.foi.restoranko.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,7 +19,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.widget.AdapterView;
@@ -40,6 +41,8 @@ import java.util.List;
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.model.Restoran;
+import hr.foi.restoranko.view.Slika;
+import hr.foi.restoranko.view.SuccessListener;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -76,27 +79,26 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        PostaviElementeIzbornika();
+        PostaviPretraguRestorana();
         DohvatiSveRestorane();
 
     }
 
-    private void PostaviElementeIzbornika() {
-        Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
+    @Override
+    public void onBackPressed()
+    {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void PostaviPretraguRestorana() {
         pretraga = (SearchView)findViewById(R.id.pretraga);
-        List<String> categories = new ArrayList<String>();
-        categories.add("SORTIRAJ");
-        categories.add("Najviše pregleda");
-        categories.add("Najviše oznaka 'omiljeno'");
-        categories.add("Najbolje ocijenjeni");
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-
         pretraga.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String tekst) {
+                pretraga.clearFocus();
                 return true;
             }
 
@@ -106,6 +108,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 return true;
             }
         });
+
     }
 
     private void PretragaRestorana(String tekst) {
@@ -136,6 +139,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     listaRestorana.add(novi);
                     DohvatiSlikuRestorana(novi);
                 }
+
+                View spinner = (View) findViewById(R.id.ucitavanjeRestorana);
+                spinner.setVisibility(View.GONE);
             }
 
             @Override
@@ -200,6 +206,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     }
 
     private void Logout(){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", null);
+        editor.putString("lozinka", null);
+        editor.apply();
+
         firebaseAuth.signOut();
         finish();
         startActivity(new Intent(Navigation.this, MainActivity.class));

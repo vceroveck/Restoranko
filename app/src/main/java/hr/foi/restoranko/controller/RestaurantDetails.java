@@ -1,10 +1,13 @@
 package hr.foi.restoranko.controller;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +25,7 @@ import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.model.OmiljeniRestoran;
 import hr.foi.restoranko.model.Restoran;
+import hr.foi.restoranko.view.Slika;
 
 public class RestaurantDetails extends AppCompatActivity {
     private Menu traka;
@@ -32,6 +36,7 @@ public class RestaurantDetails extends AppCompatActivity {
 
     ImageView slikaRestorana;
     TextView opis, adresa, kontakt, webAdresa;
+    Button menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +48,14 @@ public class RestaurantDetails extends AppCompatActivity {
         adresa = (TextView) findViewById(R.id.restoran_adresa);
         kontakt = (TextView) findViewById(R.id.restoran_kontakt);
         webAdresa = (TextView) findViewById(R.id.restoran_webAdresa);
+        menu = (Button) findViewById(R.id.natrag);
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
         omiljeniRestoran = new OmiljeniRestoran(restoran.getRestoranId(), Korisnik.prijavljeniKorisnik.getKorisnickoIme());
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         setTitle(restoran.getNazivRestorana());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl(restoran.getSlika());
@@ -59,6 +66,15 @@ public class RestaurantDetails extends AppCompatActivity {
                 slika.setUriSlike(uri);
                 restoran.setSlikaRestorana(slika);
                 Slika.postaviSlikuUImageView(restoran.getSlikaRestorana(), slikaRestorana, getBaseContext());
+            }
+        });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantDetails.this, hr.foi.restoranko.controller.Menu.class);
+                intent.putExtra("restoranko", restoran);
+                startActivity(intent);
             }
         });
 
@@ -110,9 +126,8 @@ public class RestaurantDetails extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
-            case R.id.star:
-            {
+        switch(item.getItemId()) {
+            case R.id.star: {
                 item.setVisible(false);
                 traka.findItem(R.id.star2).setVisible(true);
                 Toast.makeText(this, "Restoran izbrisan iz favorita", Toast.LENGTH_LONG).show();
@@ -122,8 +137,7 @@ public class RestaurantDetails extends AppCompatActivity {
 
                 break;
             }
-            case R.id.star2:
-            {
+            case R.id.star2: {
                 item.setVisible(false);
                 traka.findItem(R.id.star).setVisible(true);
                 Toast.makeText(this, "Restoran dodan u favorite", Toast.LENGTH_LONG).show();
@@ -132,6 +146,10 @@ public class RestaurantDetails extends AppCompatActivity {
                 mDatabase.child("omiljeniRestorani").child(key).setValue(omiljeniRestoran);
 
                 break;
+            }
+            case android.R.id.home: {
+                this.finish();
+                return true;
             }
         }
         return super.onOptionsItemSelected(item);

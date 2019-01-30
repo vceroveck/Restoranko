@@ -18,20 +18,35 @@
     <string name="regPotvrda">Ponovite lozinku</string>
     <string name="regRegistracija">Registriraj se</string>
 
-    <!-- activity_registration.xml -->
+    <!-- activity_log_in.xml -->
     <string name="prijavaLogo">Logo</string>
     <string name="prijavaEmail">E-Mail</string>
     <string name="prijavaLozinka">Lozinka</string>
+    <string name="spremiPrijavu">Ostanite prijavljeni na ovom uređaju</string>
     <string name="prijava">Prijavi se</string>
 
     <!-- activity_navigation.xml -->
     <string name="otvoriNavigacija">Otvori navigaciju</string>
     <string name="zatvoriNavigacija">Zatvori navigaciju</string>
     <string name="restoranSlika">Slika trgovine</string>
+    <string name="pretragaRestorana">Pretraži restorane</string>
 
     <!-- activity_restaurant_details.xml -->
     <string name="restoranAdresa">Adresa:</string>
     <string name="restoranKontakt">Kontakt:</string>
     <string name="restoranWebAdresa">Web adresa:</string>
+
+    <!-- activity_menu.xml -->
+    <string name="odaberiteJelovnik">Odaberite svoj jelovnik</string>
+    <string name="natrag">Natrag</string>
+    <string name="potvrdi">Potvrdi</string>
+
+    <!-- jelovnik.xml -->
+    <string name="cijena">Cijena:</string>
+    <string name="odaberiJelovnik">ODABERI</string>
+    <string name="ukloniOdabir">UKLONI</string>
+
+    <!-- fragment_potvrda_jelovnika.xml -->
+    <string name="ukupnaCijena">Ukupna cijena:</string>
 
 </resources>
