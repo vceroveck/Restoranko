@@ -139,6 +139,9 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     listaRestorana.add(novi);
                     DohvatiSlikuRestorana(novi);
                 }
+
+                View spinner = (View) findViewById(R.id.ucitavanjeRestorana);
+                spinner.setVisibility(View.GONE);
             }
 
             @Override

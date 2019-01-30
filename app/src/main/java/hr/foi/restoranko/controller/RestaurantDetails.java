@@ -1,10 +1,13 @@
 package hr.foi.restoranko.controller;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ public class RestaurantDetails extends AppCompatActivity {
 
     ImageView slikaRestorana;
     TextView opis, adresa, kontakt, webAdresa;
+    Button menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class RestaurantDetails extends AppCompatActivity {
         adresa = (TextView) findViewById(R.id.restoran_adresa);
         kontakt = (TextView) findViewById(R.id.restoran_kontakt);
         webAdresa = (TextView) findViewById(R.id.restoran_webAdresa);
+        menu = (Button) findViewById(R.id.natrag);
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
         omiljeniRestoran = new OmiljeniRestoran(restoran.getRestoranId(), Korisnik.prijavljeniKorisnik.getKorisnickoIme());
@@ -61,6 +66,15 @@ public class RestaurantDetails extends AppCompatActivity {
                 slika.setUriSlike(uri);
                 restoran.setSlikaRestorana(slika);
                 Slika.postaviSlikuUImageView(restoran.getSlikaRestorana(), slikaRestorana, getBaseContext());
+            }
+        });
+
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantDetails.this, hr.foi.restoranko.controller.Menu.class);
+                intent.putExtra("restoranko", restoran);
+                startActivity(intent);
             }
         });
 

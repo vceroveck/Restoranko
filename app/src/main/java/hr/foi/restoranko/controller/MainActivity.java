@@ -14,19 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.view.ChangeListener;
 
 public class MainActivity extends AppCompatActivity {
     Button registration;
     Button logIn;
-    LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        container = (LinearLayout) findViewById(R.id.polaEkrana);
 
         //Provjera je li mobitel povezan na internet
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Aplikacija zahtjeva pristup internetu", Toast.LENGTH_LONG).show();
             finish();
         }
+        Jelo jelo = new Jelo();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String email = preferences.getString("email", "");
