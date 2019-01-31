@@ -66,6 +66,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        listaRestorana.clear();
         firebaseAuth = FirebaseAuth.getInstance();
         Jelo jelo = new Jelo();
         RezerviraniJelovnik rezerviraniJelovnik = new RezerviraniJelovnik();

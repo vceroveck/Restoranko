@@ -2,14 +2,92 @@ package hr.foi.restoranko.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.model.Rezervacija;
 
 public class MojeRezervacije extends AppCompatActivity {
+    private LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moje_rezervacije);
+
+        container = (LinearLayout) findViewById(R.id.container);
+        DohvatiSveMojeRezervacije();
+    }
+
+    private void DohvatiSveMojeRezervacije() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rezervacija");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+
+                    String korisnik = datas.child("korisnik").getValue().toString();
+
+                    if(korisnik.equals(Korisnik.prijavljeniKorisnik.getKorisnickoIme())) {
+                        TextView nemaRezervacija = (TextView) container.findViewById(R.id.nemaRezervacija);
+                        nemaRezervacija.setVisibility(View.GONE);
+
+                        long _rezervacija = (long) datas.child("rezervacijaId").getValue();
+                        String _dolazak = datas.child("dolazak").getValue().toString();
+                        String _odlazak = datas.child("odlazak").getValue().toString();
+                        String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
+                        long _potvrdaDolaska = (long) datas.child("potvrdaDolaska").getValue();
+
+                        hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(_rezervacija, korisnik, _dolazak, _odlazak, _nazivRestorana, _potvrdaDolaska);
+                        Prikazi(rezervacija);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void Prikazi(Rezervacija rezervacija) {
+        LayoutInflater li = LayoutInflater.from(this);
+        View divider = li.inflate(R.layout.rezervacija, null, false);
+
+        TextView rezervacijaNaziv = (TextView) divider.findViewById(R.id.rezervacijaNaziv);
+        rezervacijaNaziv.setText(rezervacija.getNazivRestorana());
+
+        TextView rezervacijaDatum = (TextView) divider.findViewById(R.id.rezervacijaDatum);
+        rezervacijaDatum.setText(rezervacija.getDolazak());
+
+        Button rezervacijaPotvrda = (Button) divider.findViewById(R.id.rezervacijaPotvrda);
+        Button rezervacijaRecenzija = (Button) divider.findViewById(R.id.rezervacijaRecenzija);
+
+        rezervacijaPotvrda.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+
+                //tu je za potvrdu dolaska
+            }
+        });
+
+        rezervacijaRecenzija.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+
+                //tu je za recenziju
+            }
+        });
+
+        container.addView(divider);
     }
 }

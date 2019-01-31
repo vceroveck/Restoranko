@@ -102,7 +102,7 @@ public class Rezervacija extends AppCompatActivity {
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     String key;
 
-                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), dolazak.getText().toString(), odlazak.getText().toString());
+                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), dolazak.getText().toString(), odlazak.getText().toString(), restoran.getNazivRestorana());
                     key = mDatabase.push().getKey();
                     mDatabase.child("rezervacija").child(key).setValue(rezervacija);
 

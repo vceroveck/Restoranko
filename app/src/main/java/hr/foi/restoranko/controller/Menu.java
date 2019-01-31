@@ -39,6 +39,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 switch(prikaz[0]) {
                     case 0:
+                        RezerviraniJelovnik.BrisiCijeluListu();
                         finish();
                         break;
                     case 1:

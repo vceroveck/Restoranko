@@ -58,4 +58,8 @@
     <string name="rezervacijaPotvrda">Potvrdite rezervaciju</string>
     <string name="postaviVrijeme"><u>Postavi vrijeme</u></string>
 
+    <!-- rezervacija.xml -->
+    <string name="potvrdiRezervaciju">Potvrdi dolazak</string>
+    <string name="recenzija">Recenzija</string>
+
 </resources>

@@ -7,6 +7,17 @@ public class Rezervacija {
     private String korisnik;
     private String dolazak;
     private String odlazak;
+    private String nazivRestorana;
+    private long potvrdaDolaska;
+
+    public Rezervacija(long rezervacija, String korisnik, String dolazak, String odlazak, String nazivRestorana, long potvrdaDolaska) {
+        this.rezervacijaId = rezervacija;
+        this.korisnik = korisnik;
+        this.dolazak = dolazak;
+        this.odlazak = odlazak;
+        this.nazivRestorana = nazivRestorana;
+        this.potvrdaDolaska = potvrdaDolaska;
+    }
 
     public long getRezervacijaId() {
         return rezervacijaId;
@@ -20,23 +31,23 @@ public class Rezervacija {
         this.korisnik = korisnik;
     }
 
-    public String getDolazak() {
-        return dolazak;
+    public String getNazivRestorana() {
+        return nazivRestorana;
     }
 
-    public void setDolazak(String dolazak) {
-        this.dolazak = dolazak;
+    public String getDolazak() {
+        return dolazak;
     }
 
     public String getOdlazak() {
         return odlazak;
     }
 
-    public void setOdlazak(String odlazak) {
-        this.odlazak = odlazak;
+    public long getPotvrdaDolaska() {
+        return potvrdaDolaska;
     }
 
-    public Rezervacija(String korisnik, String dolazak, String odlazak) {
+    public Rezervacija(String korisnik, String dolazak, String odlazak, String nazivRestorana) {
 
         Date date = new Date();
 
@@ -44,5 +55,7 @@ public class Rezervacija {
         this.korisnik = korisnik;
         this.dolazak = dolazak;
         this.odlazak = odlazak;
+        this.nazivRestorana = nazivRestorana;
+        this.potvrdaDolaska = 0;
     }
 }
