@@ -29,15 +29,20 @@
         <activity android:name=".controller.Navigation">
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".controller.KorisnickiProfil" />
+        <activity android:name=".controller.KorisnickiProfil"
+            android:parentActivityName=".controller.Navigation"/>
         <activity android:name=".controller.Password" />
         <activity android:name=".controller.RestaurantDetails" />
         <activity android:name=".controller.Menu" />
         <activity
-            android:label="Rezervacija"
             android:name=".controller.Rezervacija"
-            >
-        </activity>
+            android:label="Rezervacija" />
+        <activity android:name=".controller.Favoriti"
+            android:label="Omiljeni restorani"
+            android:parentActivityName=".controller.KorisnickiProfil"/>
+        <activity android:name=".controller.MojeRezervacije"
+            android:label="Moje rezervacije"
+            android:parentActivityName=".controller.KorisnickiProfil"></activity>
     </application>
 
 </manifest>

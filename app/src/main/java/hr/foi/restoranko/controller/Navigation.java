@@ -58,7 +58,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private ListView mDrawerList;
     private ArrayAdapter<Object> mAdapter;
     private SearchView pretraga;
-    private List<Restoran> listaRestorana = new ArrayList<>();
+
+    public static List<Restoran> listaRestorana = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

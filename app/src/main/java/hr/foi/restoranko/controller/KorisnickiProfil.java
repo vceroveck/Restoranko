@@ -28,6 +28,8 @@ public class KorisnickiProfil extends AppCompatActivity {
 
         Button forgotPassword = (Button) findViewById(R.id.btnPromijenitiLozinku);
         Button promijeniSlikuProfila = (Button) findViewById(R.id.btnPromijenitiSlikuProfila);
+        Button prikazFavorita = (Button) findViewById(R.id.btnPrikazFavorita);
+        Button prikazRezervacija = (Button) findViewById(R.id.btnPrikazRezervacija);
 
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +43,20 @@ public class KorisnickiProfil extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OdaberiSliku();
+            }
+        });
+
+        prikazFavorita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(KorisnickiProfil.this, Favoriti.class));
+            }
+        });
+
+        prikazRezervacija.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(KorisnickiProfil.this, MojeRezervacije.class));
             }
         });
     }
