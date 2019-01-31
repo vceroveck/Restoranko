@@ -76,7 +76,7 @@ public class PotvrdaJelovnika extends Fragment {
                 @Override
                 public void onClick(View v) {
                     long kol = j.getKolicina();
-                    if(kol != 0) {
+                    if(kol != 1) {
                         j.setKolicina(kol-1);
                         tv2.setText(String.valueOf(j.getKolicina()));
                         tv3.setText(String.format("%.2f" , Double.valueOf(j.getJelovnik().getCijena()) * j.getKolicina() ));

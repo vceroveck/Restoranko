@@ -42,6 +42,7 @@ import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.model.Restoran;
+import hr.foi.restoranko.model.RezerviraniJelovnik;
 import hr.foi.restoranko.view.Slika;
 import hr.foi.restoranko.view.SuccessListener;
 
@@ -66,6 +67,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
         firebaseAuth = FirebaseAuth.getInstance();
         Jelo jelo = new Jelo();
+        RezerviraniJelovnik rezerviraniJelovnik = new RezerviraniJelovnik();
 
         drawer = findViewById(R.id.drawer_layout);
         container = (LinearLayout) findViewById(R.id.container);
