@@ -39,8 +39,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Jelo;
 import hr.foi.restoranko.model.Korisnik;
 import hr.foi.restoranko.model.Restoran;
+import hr.foi.restoranko.model.RezerviraniJelovnik;
 import hr.foi.restoranko.view.Slika;
 import hr.foi.restoranko.view.SuccessListener;
 
@@ -49,7 +51,6 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private FirebaseAuth firebaseAuth;
     private DrawerLayout drawer;
     private LinearLayout container;
-    private View ucitavanje;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
@@ -57,14 +58,18 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private ListView mDrawerList;
     private ArrayAdapter<Object> mAdapter;
     private SearchView pretraga;
-    private List<Restoran> listaRestorana = new ArrayList<>();
+
+    public static List<Restoran> listaRestorana = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+        listaRestorana.clear();
         firebaseAuth = FirebaseAuth.getInstance();
+        Jelo jelo = new Jelo();
+        RezerviraniJelovnik rezerviraniJelovnik = new RezerviraniJelovnik();
 
         drawer = findViewById(R.id.drawer_layout);
         container = (LinearLayout) findViewById(R.id.container);

@@ -36,7 +36,7 @@ public class RestaurantDetails extends AppCompatActivity {
 
     ImageView slikaRestorana;
     TextView opis, adresa, kontakt, webAdresa;
-    Button menu;
+    Button menu, rezerviraj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,8 @@ public class RestaurantDetails extends AppCompatActivity {
         adresa = (TextView) findViewById(R.id.restoran_adresa);
         kontakt = (TextView) findViewById(R.id.restoran_kontakt);
         webAdresa = (TextView) findViewById(R.id.restoran_webAdresa);
-        menu = (Button) findViewById(R.id.natrag);
+        menu = (Button) findViewById(R.id.menu);
+        rezerviraj = (Button) findViewById(R.id.rezerviraj);
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
         omiljeniRestoran = new OmiljeniRestoran(restoran.getRestoranId(), Korisnik.prijavljeniKorisnik.getKorisnickoIme());
@@ -73,6 +74,15 @@ public class RestaurantDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestaurantDetails.this, hr.foi.restoranko.controller.Menu.class);
+                intent.putExtra("restoranko", restoran);
+                startActivity(intent);
+            }
+        });
+
+        rezerviraj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RestaurantDetails.this, hr.foi.restoranko.controller.Rezervacija.class);
                 intent.putExtra("restoranko", restoran);
                 startActivity(intent);
             }

@@ -2,13 +2,10 @@ package hr.foi.restoranko.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -79,7 +76,7 @@ public class PotvrdaJelovnika extends Fragment {
                 @Override
                 public void onClick(View v) {
                     long kol = j.getKolicina();
-                    if(kol != 0) {
+                    if(kol != 1) {
                         j.setKolicina(kol-1);
                         tv2.setText(String.valueOf(j.getKolicina()));
                         tv3.setText(String.format("%.2f" , Double.valueOf(j.getJelovnik().getCijena()) * j.getKolicina() ));

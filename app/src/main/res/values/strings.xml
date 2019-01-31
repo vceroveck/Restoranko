@@ -49,4 +49,17 @@
     <!-- fragment_potvrda_jelovnika.xml -->
     <string name="ukupnaCijena">Ukupna cijena:</string>
 
+    <!-- activity_rezervacija.xml -->
+    <string name="rezervacijaDolazak">Dolazak:</string>
+    <string name="rezervacijaOdlazak">Odlazak:</string>
+    <string name="rezervacijaOdabirMenu">Odaberite svoj jelovnik</string>
+    <string name="rezervacijaUrediMenu">Uredite svoj jelovnik</string>
+    <string name="rezervacijaOdabirStol">Odaberite svoj stol</string>
+    <string name="rezervacijaPotvrda">Potvrdite rezervaciju</string>
+    <string name="postaviVrijeme"><u>Postavi vrijeme</u></string>
+
+    <!-- rezervacija.xml -->
+    <string name="potvrdiRezervaciju">Potvrdi dolazak</string>
+    <string name="recenzija">Recenzija</string>
+
 </resources>

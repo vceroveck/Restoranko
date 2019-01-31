@@ -11,14 +11,6 @@
         tools:context=".MainActivity"
         android:background="#ffffffff">
         <include layout="@layout/layout_navigation"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textSize="24sp"
-            android:gravity="center"
-            android:layout_marginTop="100dp"/>
-
     </RelativeLayout>
     <ListView
         android:id="@+id/navList"

@@ -1,6 +1,6 @@
 package hr.foi.restoranko.controller;
 
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
-import java.io.Serializable;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Restoran;
@@ -41,6 +39,7 @@ public class Menu extends AppCompatActivity {
             public void onClick(View v) {
                 switch(prikaz[0]) {
                     case 0:
+                        RezerviraniJelovnik.BrisiCijeluListu();
                         finish();
                         break;
                     case 1:
@@ -65,7 +64,9 @@ public class Menu extends AppCompatActivity {
                         }
                         break;
                     case 1:
-                        //prebaci na potvrdu rezervacije
+                        Intent intent = new Intent(Menu.this, hr.foi.restoranko.controller.Rezervacija.class);
+                        intent.putExtra("restoranko", restoran);
+                        startActivity(intent);
 
                         prikaz[0]--;
                         break;
@@ -76,8 +77,6 @@ public class Menu extends AppCompatActivity {
 
         restoran = getIntent().getExtras().getParcelable("restoranko");
         setTitle("Menu restorana " + restoran.getNazivRestorana());
-
-        RezerviraniJelovnik rezerviraniJelovnik = new RezerviraniJelovnik();
 
         Bundle bundle = new Bundle();
         long restoranId = restoran.getRestoranId();
