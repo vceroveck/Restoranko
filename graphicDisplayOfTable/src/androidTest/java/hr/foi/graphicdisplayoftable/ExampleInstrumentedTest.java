@@ -1,4 +1,4 @@
-package com.example.graphicdisplayoftable;
+package hr.foi.graphicdisplayoftable;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

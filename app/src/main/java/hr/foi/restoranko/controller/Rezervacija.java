@@ -45,6 +45,7 @@ public class Rezervacija extends AppCompatActivity {
             }
         });
 
+
         odlazak = findViewById(R.id.odlazakVrijeme);
         odlazak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +80,8 @@ public class Rezervacija extends AppCompatActivity {
         odabirStola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //tu se treba povezat s modulom ...
+                Intent intent = new Intent(Rezervacija.this, hr.foi.graphicdisplayoftable.OdabirStola.class);
+                startActivity(intent);
             }
         });
 
