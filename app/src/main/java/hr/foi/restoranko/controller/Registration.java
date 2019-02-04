@@ -92,7 +92,7 @@ public class Registration extends AppCompatActivity {
         }
         else {
             //provjeri dal već postoji taj korisnik u bazi, ako ne onda šalji u bazu
-            final Query provjeraKorIme = FirebaseDatabase.getInstance().getReference("user").orderByChild("korisnickoIme").equalTo(korimeVrijednost);
+            final Query provjeraKorIme = FirebaseDatabase.getInstance().getReference().child("user").orderByChild("korisnickoIme").equalTo(korimeVrijednost);
             provjeraKorIme.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
