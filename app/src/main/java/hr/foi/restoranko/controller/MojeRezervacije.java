@@ -1,5 +1,6 @@
 package hr.foi.restoranko.controller;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,7 +89,7 @@ public class MojeRezervacije extends AppCompatActivity {
         rezervacijaRecenzija.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
 
-                //tu je za recenziju
+                startActivity(new Intent(MojeRezervacije.this, Recenzija.class));
             }
         });
 
