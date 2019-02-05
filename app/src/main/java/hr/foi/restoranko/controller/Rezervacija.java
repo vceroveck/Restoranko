@@ -80,8 +80,10 @@ public class Rezervacija extends AppCompatActivity {
         odabirStola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Rezervacija.this, hr.foi.graphicdisplayoftable.OdabirStola.class);
-                intent.putExtra("restoran", restoran.getRestoranId());
+                Intent intent = new Intent(Rezervacija.this, OdabirStolaActivity.class);
+                intent.putExtra("restoranId", restoran.getRestoranId());
+                intent.putExtra("dolazak", dolazak.getText());
+                intent.putExtra("odlazak", odlazak.getText());
                 startActivity(intent);
             }
         });
