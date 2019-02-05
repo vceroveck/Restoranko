@@ -46,7 +46,9 @@
             android:name=".controller.MojeRezervacije"
             android:label="Moje rezervacije"
             android:parentActivityName=".controller.KorisnickiProfil" />
-        <activity android:name=".controller.QrScener"></activity>
+        <activity android:name=".controller.QrScener" />
+        android:theme="@style/Theme.AppCompat.Light"
+        <activity android:name=".controller.QRGenerator"></activity>
     </application>
 
 </manifest>
