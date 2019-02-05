@@ -2,6 +2,7 @@ package hr.foi.restoranko.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -36,22 +37,25 @@ public class MojeRezervacije extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datas: dataSnapshot.getChildren()){
+                    try {
+                        String korisnik = datas.child("korisnik").getValue().toString();
 
-                    String korisnik = datas.child("korisnik").getValue().toString();
+                        if (korisnik.equals(Korisnik.prijavljeniKorisnik.getKorisnickoIme())) {
+                            TextView nemaRezervacija = (TextView) container.findViewById(R.id.nemaRezervacija);
+                            nemaRezervacija.setVisibility(View.GONE);
 
-                    if(korisnik.equals(Korisnik.prijavljeniKorisnik.getKorisnickoIme())) {
-                        TextView nemaRezervacija = (TextView) container.findViewById(R.id.nemaRezervacija);
-                        nemaRezervacija.setVisibility(View.GONE);
+                            long _rezervacija = (long) datas.child("rezervacijaId").getValue();
+                            String _dolazak = datas.child("dolazak").getValue().toString();
+                            String _odlazak = datas.child("odlazak").getValue().toString();
+                            String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
+                            long _potvrdaDolaska = (long) datas.child("potvrdaDolaska").getValue();
 
-                        long _rezervacija = (long) datas.child("rezervacijaId").getValue();
-                        String _dolazak = datas.child("dolazak").getValue().toString();
-                        String _odlazak = datas.child("odlazak").getValue().toString();
-                        String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
-                        long _potvrdaDolaska = (long) datas.child("potvrdaDolaska").getValue();
-
-                        hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(_rezervacija, korisnik, _dolazak, _odlazak, _nazivRestorana, _potvrdaDolaska);
-                        Prikazi(rezervacija);
+                            hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(_rezervacija, korisnik, _dolazak, _odlazak, _nazivRestorana, _potvrdaDolaska);
+                            Prikazi(rezervacija);
+                        }
                     }
+                    catch (Exception e){}
+
                 }
             }
 
