@@ -1,25 +1,31 @@
 package hr.foi.restoranko.view;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.app.Activity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.controller.PrikazStolova;
@@ -39,7 +45,24 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final ImageView imageView = view.findViewById(R.id.imageViewPrikazStolova);
+        final View view1=view;
+        final Slika slika = new Slika();
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://hr-foi-restoranko.appspot.com/restoraniTlocrt/1.png");
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                slika.setUriSlike(uri);
+                Slika.postaviSlikuUImageView(slika, imageView,  view1.getContext());
+            }
+        });
+
+
+
         Spinner spinner=view.findViewById(R.id.spinnerOdabirStola);
+        spinner.setAdapter(dohvatiStolove());
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -54,19 +77,25 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
         });
     }
 
-    /*private ArrayAdapter dohvatiStolove()
+    private ArrayAdapter dohvatiStolove()
     {
         String restoran=this.getActivity().getIntent().getStringExtra("restoran");
-        String dolazak=this.getActivity().getIntent().getStringExtra("dolazak");
+        final String dolazak=this.getActivity().getIntent().getStringExtra("dolazak");
         String odlazak=this.getActivity().getIntent().getStringExtra("odlazak");
 
 
-        String[] listaStolova=new String[]{};
-        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("restoran").child(restoran).child("stolovi").addValueEventListener(new ValueEventListener() {
+        final ArrayList<String> listaStolova=new ArrayList<>();
+
+        DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference().child("restoran").child("1").child("stolovi");
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot data:dataSnapshot.getChildren()){
+                        listaStolova.add(data.getKey());
+                    }
+                }
             }
 
             @Override
@@ -75,7 +104,11 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
             }
         });
 
-    }*/
+        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item,  listaStolova);
+        arrayAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        return arrayAdapter;
+
+    }
 
     @Override
     public Fragment getFragment()

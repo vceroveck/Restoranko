@@ -62,6 +62,7 @@ public class PrikazStolovaManager
     {
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
+        int btnId=0;
         int constraintSet=ConstraintSet.LEFT;
         int id=ConstraintSet.PARENT_ID;
         for (String key : prikazStolovaList.keySet())
@@ -70,6 +71,8 @@ public class PrikazStolovaManager
             final Button button = new Button(activity);
             button.setText(prikazStolova.getName());
             button.setId(View.generateViewId());
+
+            btnId=button.getId();
 
             layout.addView(button);
 
@@ -85,15 +88,15 @@ public class PrikazStolovaManager
             });
 
         }
-        set.connect(1, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
-        set.connect(1, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
-        set.connect(1, ConstraintSet.RIGHT, 2, ConstraintSet.LEFT, 0);
-        set.constrainWidth(1,  500);
+        set.connect(btnId-1, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+        set.connect(btnId-1, ConstraintSet.LEFT, ConstraintSet.PARENT_ID, ConstraintSet.LEFT, 0);
+        set.connect(btnId-1, ConstraintSet.RIGHT, btnId, ConstraintSet.LEFT, 0);
+        set.constrainWidth(btnId-1,  500);
 
-        set.connect(2, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
-        set.connect(2, ConstraintSet.LEFT, 1, ConstraintSet.RIGHT, 0);
-        set.connect(2, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
-        set.constrainWidth(2, 500);
+        set.connect(btnId, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 0);
+        set.connect(btnId, ConstraintSet.LEFT, btnId-1, ConstraintSet.RIGHT, 0);
+        set.connect(btnId, ConstraintSet.RIGHT, ConstraintSet.PARENT_ID, ConstraintSet.RIGHT, 0);
+        set.constrainWidth(btnId, 500);
         set.applyTo(layout);
     }
 
