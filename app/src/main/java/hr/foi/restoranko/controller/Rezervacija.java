@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -51,6 +52,11 @@ public class Rezervacija extends AppCompatActivity {
 
 
         odlazak = findViewById(R.id.odlazakVrijeme);
+
+        final DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy. HH:mm");
+        final Date[] dateDolazak = new Date[1];
+        final Date[] dateOdlazak = new Date[1];
+
         odlazak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,10 +90,17 @@ public class Rezervacija extends AppCompatActivity {
         odabirStola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    dateDolazak[0] = (Date) formatter.parse(String.valueOf(dolazak.getText()));
+                    dateOdlazak[0] = (Date) formatter.parse(String.valueOf(odlazak.getText()));
+                } catch (ParseException e) {
+                    Log.i("errorDatum", e.getMessage());
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(Rezervacija.this, OdabirStolaActivity.class);
                 intent.putExtra("restoranId", String.valueOf(restoran.getRestoranId()));
-                intent.putExtra("dolazak", dolazak.getText());
-                intent.putExtra("odlazak", odlazak.getText());
+                intent.putExtra("dolazak", String.valueOf(dateDolazak[0].getTime()));
+                intent.putExtra("odlazak", String.valueOf(dateOdlazak[0].getTime()));
                 startActivity(intent);
             }
         });
@@ -110,21 +123,21 @@ public class Rezervacija extends AppCompatActivity {
 
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     String key;
-                    DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                    Date dateDolazak = null;
-                    Date dateOdlazak = null;
+
+
                     try {
-                        dateDolazak = (Date)formatter.parse(dolazak.getText().toString());
-                        dateOdlazak=(Date) formatter.parse(odlazak.getText().toString());
+                        dateDolazak[0] = (Date) formatter.parse(String.valueOf(dolazak.getText()));
+                        dateOdlazak[0] = (Date) formatter.parse(String.valueOf(odlazak.getText()));
                     } catch (ParseException e) {
+                        Log.i("errorDatum", e.getMessage());
                         e.printStackTrace();
                     }
 
                     String odabraniStol="stol1";
 
-                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), dateDolazak.toString(), dateOdlazak.toString(), restoran.getNazivRestorana());
+                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), String.valueOf(dateDolazak[0].getTime()), String.valueOf(dateOdlazak[0].toString()), restoran.getNazivRestorana());
                     key = mDatabase.push().getKey();
-                    mDatabase.child("rezervacija").child(restoran+"_"+odabraniStol).setValue(rezervacija);
+                    mDatabase.child("rezervacija").child(restoran.getRestoranId()+"_"+odabraniStol).child(key).setValue(rezervacija);
 
                     int brojJela = 0;
 

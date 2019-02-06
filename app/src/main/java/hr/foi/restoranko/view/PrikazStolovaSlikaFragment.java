@@ -1,12 +1,9 @@
 package hr.foi.restoranko.view;
 
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,22 +13,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.app.Activity;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import hr.foi.graphicdisplayoftable.Stol;
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.controller.PrikazStolova;
 
@@ -48,7 +37,7 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
     }
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         final String restoran=this.getActivity().getIntent().getStringExtra("restoranId");
@@ -65,7 +54,6 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(view.getContext(), "OOOO", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -75,25 +63,33 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
         });
 
         Button button = view.findViewById(R.id.buttonPotvrdaOdabiraStola);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String odabraniStol=spinner.getSelectedItem().toString();
-                if(odabraniStol=="--Odaberite stol--"){
+                if(odabraniStol =="--Odaberite stol--"){
                     Toast.makeText(view.getContext(), "Niste odabrali ni jedan stol", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    if(ProvjeriDostupnostStola(restoran, odabraniStol, dolazak, odlazak)){
-                        //stol je moguce rezervirati
-                    }
+                    final boolean[] slobodan=new boolean[1];
+                    ProvjeriDostupnostStola(slobodan, restoran, odabraniStol, dolazak, odlazak, new OnCompleteListener() {
+                        @Override
+                        public void onComplete() {
+                            if (slobodan[0]) {
+                                Toast.makeText(getContext(), "Stol je moguće rezervirati", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getContext(), "Stol nije moguće rezervirati", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
             }
         });
 
     }
 
-    private boolean ProvjeriDostupnostStola(String restoran, String odabraniStol, String dolazak, String odlazak) {
-        boolean slobodan=false;
+    private void ProvjeriDostupnostStola(final boolean[] slobodan, String restoran, String odabraniStol, final String dolazak, final String odlazak, final OnCompleteListener onCompleteListener) {
 
         final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("rezervacija").child(restoran+"_"+odabraniStol);
         databaseReference.orderByChild("odlazak").startAt(dolazak).limitToFirst(1).addValueEventListener(new ValueEventListener() {
@@ -102,7 +98,14 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot data:dataSnapshot.getChildren()){
                         String postojeciDolazak=data.child("dolazak").getValue().toString();
-                        Log.i("dolazak", postojeciDolazak);
+                        if(Long.parseLong(postojeciDolazak)<Long.parseLong(odlazak)){
+                            slobodan[0]=false;
+                            onCompleteListener.onComplete();
+                        }
+                        else{
+                            slobodan[0]=true;
+                            onCompleteListener.onComplete();
+                        }
                     }
                 }
             }
@@ -112,8 +115,6 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
 
             }
         });
-
-        return slobodan;
     }
 
     private void dohvatiStoloveUSpinner(final Spinner spinner, String restoran) {
