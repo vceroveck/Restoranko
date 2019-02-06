@@ -9,6 +9,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import hr.foi.restoranko.R;
 
 public class Recenzija extends AppCompatActivity {
@@ -18,10 +21,14 @@ public class Recenzija extends AppCompatActivity {
     EditText povratnaInformacija;
     Button posalji;
 
+    DatabaseReference bazaRecenzije;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recenzija);
+
+        bazaRecenzije = FirebaseDatabase.getInstance().getReference("recenzije");
 
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ljestvica = (TextView) findViewById(R.id.txtLjestvica);
@@ -60,11 +67,23 @@ public class Recenzija extends AppCompatActivity {
                 if(povratnaInformacija.getText().toString().isEmpty()){
                     Toast.makeText(Recenzija.this, "Ispunite tekstualni okvir za povratnu informaciju!", Toast.LENGTH_LONG).show();
                 }else{
+                    dodajRecenziju();
                     povratnaInformacija.setText("");
                     ratingBar.setRating(0);
                     Toast.makeText(Recenzija.this, "Hvala što ste podijelili povratnu informaciju!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void dodajRecenziju(){
+        String postavljenaLjestvica = ljestvica.getText().toString().trim();
+        String informacija = povratnaInformacija.getText().toString().trim();
+
+        String id = bazaRecenzije.push().getKey();
+
+        hr.foi.restoranko.model.Recenzija recenzija = new hr.foi.restoranko.model.Recenzija(id, postavljenaLjestvica, informacija);
+
+        bazaRecenzije.child(id).setValue(recenzija);
     }
 }
