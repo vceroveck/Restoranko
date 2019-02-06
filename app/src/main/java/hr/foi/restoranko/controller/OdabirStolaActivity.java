@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.view.PrikazStolovaSlikaFragment;
@@ -13,7 +14,7 @@ import hr.foi.restoranko.view.PrikazStolovaSlikaFragment;
 public class OdabirStolaActivity extends AppCompatActivity
 {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_odabir_stola);

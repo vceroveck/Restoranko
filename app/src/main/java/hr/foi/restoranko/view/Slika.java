@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -131,6 +133,30 @@ public class Slika {
                         }
                     });
         }
+
+    }
+    public void dohvatiIPostaviSliku(String putanja, final ImageView view, final Context context){
+        final Slika slika=new Slika();
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReferenceFromUrl(putanja);
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                slika.setUriSlike(uri);
+                Glide.with(context)
+                        .load(slika.getUriSlike())
+                        .asBitmap()
+                        .fitCenter()
+                        .into(view);
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
 
     }
 }

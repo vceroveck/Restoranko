@@ -16,7 +16,11 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
@@ -81,7 +85,7 @@ public class Rezervacija extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Rezervacija.this, OdabirStolaActivity.class);
-                intent.putExtra("restoranId", restoran.getRestoranId());
+                intent.putExtra("restoranId", String.valueOf(restoran.getRestoranId()));
                 intent.putExtra("dolazak", dolazak.getText());
                 intent.putExtra("odlazak", odlazak.getText());
                 startActivity(intent);
@@ -106,10 +110,21 @@ public class Rezervacija extends AppCompatActivity {
 
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
                     String key;
+                    DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+                    Date dateDolazak = null;
+                    Date dateOdlazak = null;
+                    try {
+                        dateDolazak = (Date)formatter.parse(dolazak.getText().toString());
+                        dateOdlazak=(Date) formatter.parse(odlazak.getText().toString());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), dolazak.getText().toString(), odlazak.getText().toString(), restoran.getNazivRestorana());
+                    String odabraniStol="stol1";
+
+                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), dateDolazak.toString(), dateOdlazak.toString(), restoran.getNazivRestorana());
                     key = mDatabase.push().getKey();
-                    mDatabase.child("rezervacija").child(key).setValue(rezervacija);
+                    mDatabase.child("rezervacija").child(restoran+"_"+odabraniStol).setValue(rezervacija);
 
                     int brojJela = 0;
 
