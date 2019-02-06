@@ -135,7 +135,7 @@ public class Rezervacija extends AppCompatActivity {
 
                     String odabraniStol="stol1";
 
-                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), String.valueOf(dateDolazak[0].getTime()), String.valueOf(dateOdlazak[0].toString()), restoran.getNazivRestorana());
+                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), String.valueOf(dateDolazak[0].getTime()), String.valueOf(dateOdlazak[0].getTime()), restoran.getNazivRestorana());
                     key = mDatabase.push().getKey();
                     mDatabase.child("rezervacija").child(restoran.getRestoranId()+"_"+odabraniStol).child(key).setValue(rezervacija);
 

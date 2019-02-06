@@ -108,6 +108,10 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
                         }
                     }
                 }
+                else{
+                    slobodan[0]=true;
+                    onCompleteListener.onComplete();
+                }
             }
 
             @Override
