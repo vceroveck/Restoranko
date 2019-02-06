@@ -2,6 +2,7 @@ package hr.foi.restoranko.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,13 +78,16 @@ public class Recenzija extends AppCompatActivity {
     }
 
     private void dodajRecenziju(){
+        long restoranId = getIntent().getExtras().getLong("restoranko");
+
         String postavljenaLjestvica = ljestvica.getText().toString().trim();
         String informacija = povratnaInformacija.getText().toString().trim();
 
         String id = bazaRecenzije.push().getKey();
 
-        hr.foi.restoranko.model.Recenzija recenzija = new hr.foi.restoranko.model.Recenzija(id, postavljenaLjestvica, informacija);
+        hr.foi.restoranko.model.Recenzija recenzija = new hr.foi.restoranko.model.Recenzija(restoranId, id, postavljenaLjestvica, informacija);
 
         bazaRecenzije.child(id).setValue(recenzija);
+        finish();
     }
 }

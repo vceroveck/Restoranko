@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
+import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.model.Rezervacija;
 
 public class MojeRezervacije extends AppCompatActivity {
@@ -66,7 +67,7 @@ public class MojeRezervacije extends AppCompatActivity {
         });
     }
 
-    private void Prikazi(Rezervacija rezervacija) {
+    private void Prikazi(final Rezervacija rezervacija) {
         LayoutInflater li = LayoutInflater.from(this);
         View divider = li.inflate(R.layout.rezervacija, null, false);
 
@@ -89,7 +90,26 @@ public class MojeRezervacije extends AppCompatActivity {
         rezervacijaRecenzija.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
 
-                startActivity(new Intent(MojeRezervacije.this, Recenzija.class));
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("restoran");
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot datas: dataSnapshot.getChildren()){
+                            String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
+                            if(rezervacija.getNazivRestorana().equals(_nazivRestorana)) {
+                                long _restoranId = (long) datas.child("restoranId").getValue();
+
+                                Intent intent = new Intent(MojeRezervacije.this, Recenzija.class);
+                                intent.putExtra("restoranko", _restoranId);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
         });
 
