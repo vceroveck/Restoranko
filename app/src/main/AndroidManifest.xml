@@ -46,7 +46,8 @@
             android:name=".controller.MojeRezervacije"
             android:label="Moje rezervacije"
             android:parentActivityName=".controller.KorisnickiProfil" />
-        <activity android:name=".controller.Recenzija"></activity>
+        <activity android:name=".controller.Recenzija" />
+        <activity android:name=".controller.RecenzijeIspis"></activity>
     </application>
 
 </manifest>

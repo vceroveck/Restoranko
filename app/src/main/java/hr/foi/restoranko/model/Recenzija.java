@@ -3,6 +3,7 @@ package hr.foi.restoranko.model;
 public class Recenzija {
 
     long restoranId;
+    String nazivRestorana;
     String recenzijaId;
     String recenzijaLjestvica;
     String recenzijaPovratnaInfo;
@@ -11,8 +12,9 @@ public class Recenzija {
 
     }
 
-    public Recenzija(long restoranId, String recenzijaId, String recenzijaLjestvica, String recenzijaPovratnaInfo) {
+    public Recenzija(long restoranId, String nazivRestorana, String recenzijaId, String recenzijaLjestvica, String recenzijaPovratnaInfo) {
         this.restoranId = restoranId;
+        this.nazivRestorana=nazivRestorana;
         this.recenzijaId = recenzijaId;
         this.recenzijaLjestvica = recenzijaLjestvica;
         this.recenzijaPovratnaInfo = recenzijaPovratnaInfo;
@@ -29,4 +31,6 @@ public class Recenzija {
     public String getRecenzijaPovratnaInfo() {
         return recenzijaPovratnaInfo;
     }
+
+    public String getNazivRestorana(){ return  nazivRestorana;}
 }

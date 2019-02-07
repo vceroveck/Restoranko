@@ -281,7 +281,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
 
     private void addDrawerItems(){
-        Object[] items={"Korisnički profil", "Notifikacije", "Odjava"};
+        Object[] items={"Korisnički profil", "Recenzije", "Odjava"};
         mAdapter = new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, items);
         mDrawerList.setAdapter(mAdapter);
 
@@ -323,6 +323,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                 break;
             }
             case 2:{
+                startActivity(new Intent(Navigation.this, RecenzijeIspis.class));
                 break;
             }
             case 3:{

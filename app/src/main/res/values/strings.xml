@@ -64,7 +64,7 @@
 
     <!-- activity_recenzija.xml -->
     <string name="poruka">Nadamo se da ste uživali u našem restoranu!</string>
-    <string name="ljestvica">Fenomenalno</string>
+    <string name="ljestvica">fenomenalno</string>
     <string name="posalji">Pošalji povratnu informaciju</string>
 
 </resources>

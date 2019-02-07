@@ -101,6 +101,7 @@ public class MojeRezervacije extends AppCompatActivity {
 
                                 Intent intent = new Intent(MojeRezervacije.this, Recenzija.class);
                                 intent.putExtra("restoranko", _restoranId);
+                                intent.putExtra("restoranko", _nazivRestorana);
                                 startActivity(intent);
                             }
                         }

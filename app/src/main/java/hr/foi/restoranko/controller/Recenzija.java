@@ -79,13 +79,14 @@ public class Recenzija extends AppCompatActivity {
 
     private void dodajRecenziju(){
         long restoranId = getIntent().getExtras().getLong("restoranko");
+        String nazivRestorana = getIntent().getExtras().getString("restoranko");
 
         String postavljenaLjestvica = ljestvica.getText().toString().trim();
         String informacija = povratnaInformacija.getText().toString().trim();
 
         String id = bazaRecenzije.push().getKey();
 
-        hr.foi.restoranko.model.Recenzija recenzija = new hr.foi.restoranko.model.Recenzija(restoranId, id, postavljenaLjestvica, informacija);
+        hr.foi.restoranko.model.Recenzija recenzija = new hr.foi.restoranko.model.Recenzija(restoranId, nazivRestorana ,id, postavljenaLjestvica, informacija);
 
         bazaRecenzije.child(id).setValue(recenzija);
         finish();
