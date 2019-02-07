@@ -32,7 +32,9 @@
         <activity
             android:name=".controller.KorisnickiProfil"
             android:parentActivityName=".controller.Navigation" />
-        <activity android:name=".controller.Password" />
+        <activity android:name=".controller.Password"
+                  android:label="Promjena lozinke"
+                  android:parentActivityName=".controller.KorisnickiProfil"/>
         <activity android:name=".controller.RestaurantDetails" />
         <activity android:name=".controller.Menu" />
         <activity
@@ -49,8 +51,12 @@
         <activity android:name=".controller.QrScener"
         android:theme="@style/Theme.AppCompat.Light"/>
         <activity android:name=".controller.QRGenerator"/>
-        <activity android:name=".controller.Recenzija" />
-        <activity android:name=".controller.RecenzijeIspis"></activity>
+        <activity android:name=".controller.Recenzija"
+                  android:label="Unos recenzije"
+                  android:parentActivityName=".controller.MojeRezervacije"/>
+        <activity android:name=".controller.RecenzijeIspis"
+                  android:label="Sve recenzije"
+                  android:parentActivityName=".controller.Navigation"></activity>
     </application>
 
 </manifest>
