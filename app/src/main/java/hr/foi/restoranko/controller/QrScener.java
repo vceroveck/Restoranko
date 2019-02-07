@@ -1,5 +1,8 @@
 package hr.foi.restoranko.controller;
 
+
+
+import java.util.ArrayList;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -30,10 +33,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
+
 public class QrScener extends AppCompatActivity  implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private String sifra;
+
+    List<String> ListaSifri = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +80,17 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         });
 
         builder.setMessage(result);
-        if (result.equals(String.valueOf(sifra))) {
-            builder.setMessage("Rezervacija potvrdena");
-        } else {
-            builder.setMessage("Greska sa QR kodom");
+        for(int i=0; i<ListaSifri.size(); i++){
+
+
+            if (result.equals(ListaSifri.get(i))) {
+                builder.setMessage("Rezervacija potvrdena");
+            } /*else {
+                builder.setMessage("Greska sa QR kodom");
+            }*/
         }
+
+
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -85,24 +98,19 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
-
-
-
-
         this.validirajNarudzbuDostave(scanResult);
 
     }
 
 
-    public String DohvacanjeSifreRezervacije(){
-        String ba="";
+    public void DohvacanjeSifreRezervacije(){
+
         final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("rezervacija").child("1_stol1");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
-
-                    sifra=data.getKey();
+                    ListaSifri.add(data.getKey());
 
                 }
             }
@@ -112,7 +120,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
             }
         });
-        return  ba;
+
 
     }
 
