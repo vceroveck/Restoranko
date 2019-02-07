@@ -1,1 +1,1 @@
-include ':app', ':graphicDisplayOfTable'
+include ':app', ':graphicDisplayOfTable', ':core'

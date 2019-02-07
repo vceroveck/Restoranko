@@ -1,4 +1,4 @@
-package com.example.graphicdisplayoftable;
+package hr.foi.core;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.graphicdisplayoftable.test", appContext.getPackageName());
+        assertEquals("hr.foi.core.test", appContext.getPackageName());
     }
 }

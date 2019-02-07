@@ -1,2 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.graphicdisplayoftable" />
+    package="hr.foi.graphicdisplayoftable" >
+
+<uses-permission android:name="android.permission.CAMERA" />
+
+<uses-feature android:name="android.hardware.camera" />
+<uses-feature android:name="android.hardware.camera.autofocus" />
+
+<application>
+<activity
+    android:name=".OdabirStola"
+    android:label="Odabir stola"
+    android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+</application>
+
+</manifest>
