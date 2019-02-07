@@ -59,7 +59,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         }
     }
 
-    public void validirajNarudzbuDostave(final String result) {
+    public void potvrdaRezervacije(final String result) {
 
 
 
@@ -84,7 +84,9 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
 
             if (result.equals(ListaSifri.get(i))) {
+                sifra=result;
                 builder.setMessage("Rezervacija potvrdena");
+                azuriranjePotvrdeDolaska();
             } /*else {
                 builder.setMessage("Greska sa QR kodom");
             }*/
@@ -96,9 +98,18 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         alert.show();
     }
 
+    private void azuriranjePotvrdeDolaska(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference();
+        dbRef = database.getReference().child("rezervacija").child("1_stol1").child(sifra).child("potvrdaDolaska");
+        dbRef.setValue("1");
+
+    }
+
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
-        this.validirajNarudzbuDostave(scanResult);
+        this.potvrdaRezervacije(scanResult);
+
 
     }
 
