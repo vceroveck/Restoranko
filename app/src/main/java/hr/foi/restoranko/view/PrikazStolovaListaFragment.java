@@ -14,7 +14,7 @@ import hr.foi.restoranko.controller.PrikazStolova;
 
 public class PrikazStolovaListaFragment extends Fragment implements PrikazStolova {
     private String name="Putem liste";
-
+    private OnOdabirStolaCompleteListener onOdabirStolaCompleteListener;
 
     @Nullable
     @Override
@@ -38,5 +38,10 @@ public class PrikazStolovaListaFragment extends Fragment implements PrikazStolov
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public void setOnCompleteListener(OnOdabirStolaCompleteListener onCompleteListener) {
+        this.onOdabirStolaCompleteListener=onCompleteListener;
     }
 }

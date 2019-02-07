@@ -1,5 +1,7 @@
 package hr.foi.restoranko.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +29,8 @@ import hr.foi.restoranko.controller.PrikazStolova;
 public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolova
 {
     String name = "Putem slike";
+
+    private OnOdabirStolaCompleteListener onOdabirStolaCompleteListener;
 
     @Nullable
     @Override
@@ -67,7 +71,7 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String odabraniStol=spinner.getSelectedItem().toString();
+                final String odabraniStol=spinner.getSelectedItem().toString();
                 if(odabraniStol =="--Odaberite stol--"){
                     Toast.makeText(view.getContext(), "Niste odabrali ni jedan stol", Toast.LENGTH_LONG).show();
                 }
@@ -77,7 +81,9 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
                         @Override
                         public void onComplete() {
                             if (slobodan[0]) {
-                                Toast.makeText(getContext(), "Stol je moguće rezervirati", Toast.LENGTH_LONG).show();
+                                Intent returnDataIntent = getActivity().getIntent();
+                                returnDataIntent.putExtra("stolId", odabraniStol);
+                                onOdabirStolaCompleteListener.OnOdabirStolaCompleteListener(returnDataIntent);
                             } else {
                                 Toast.makeText(getContext(), "Stol nije moguće rezervirati", Toast.LENGTH_LONG).show();
                             }
@@ -159,4 +165,11 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public void setOnCompleteListener(OnOdabirStolaCompleteListener onCompleteListener) {
+        this.onOdabirStolaCompleteListener = onCompleteListener;
+    }
+
+
 }

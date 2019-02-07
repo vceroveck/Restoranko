@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.view.OnOdabirStolaCompleteListener;
 import hr.foi.restoranko.view.PrikazStolovaListaFragment;
 import hr.foi.restoranko.view.PrikazStolovaSlikaFragment;
 
@@ -42,10 +43,10 @@ public class PrikazStolovaManager
         prikazStolovaList.put(prikazStolovaListaFragment.getName(), prikazStolovaListaFragment);
     }
 
-    public void setDependencies(AppCompatActivity activity, ConstraintLayout layout)
+    public void setDependencies(AppCompatActivity activity, ConstraintLayout layout, OnOdabirStolaCompleteListener onOdabirStolaCompleteListener)
     {
         this.activity = activity;
-        createDrawer(layout);
+        createDrawer(layout, onOdabirStolaCompleteListener);
 
     }
 
@@ -58,16 +59,16 @@ public class PrikazStolovaManager
         return instance;
     }
 
-    public void createDrawer(ConstraintLayout layout)
+    public void createDrawer(ConstraintLayout layout, OnOdabirStolaCompleteListener onOdabirStolaCompleteListener)
     {
         ConstraintSet set = new ConstraintSet();
         set.clone(layout);
         int btnId=0;
-        int constraintSet=ConstraintSet.LEFT;
-        int id=ConstraintSet.PARENT_ID;
+
         for (String key : prikazStolovaList.keySet())
         {
             PrikazStolova prikazStolova = prikazStolovaList.get(key);
+            prikazStolova.setOnCompleteListener(onOdabirStolaCompleteListener);
             final Button button = new Button(activity);
             button.setText(prikazStolova.getName());
             button.setId(View.generateViewId());
@@ -75,9 +76,6 @@ public class PrikazStolovaManager
             btnId=button.getId();
 
             layout.addView(button);
-
-            id=button.getId();
-            constraintSet = ConstraintSet.RIGHT;
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

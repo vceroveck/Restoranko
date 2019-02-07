@@ -1,9 +1,11 @@
 package hr.foi.restoranko.controller;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -101,7 +103,8 @@ public class Rezervacija extends AppCompatActivity {
                 intent.putExtra("restoranId", String.valueOf(restoran.getRestoranId()));
                 intent.putExtra("dolazak", String.valueOf(dateDolazak[0].getTime()));
                 intent.putExtra("odlazak", String.valueOf(dateOdlazak[0].getTime()));
-                startActivity(intent);
+                startActivityForResult(intent, 0);
+
             }
         });
 
@@ -213,5 +216,16 @@ public class Rezervacija extends AppCompatActivity {
         if(min<10) return "0" + String.valueOf(min);
         return String.valueOf(min);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.i("gotovo", "gotovo");
+
+        Toast.makeText(this, data.getStringExtra("stolId"), Toast.LENGTH_LONG).show();
+
+    }
+
 
 }
