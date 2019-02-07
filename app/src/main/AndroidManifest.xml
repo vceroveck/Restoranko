@@ -46,14 +46,11 @@
             android:name=".controller.MojeRezervacije"
             android:label="Moje rezervacije"
             android:parentActivityName=".controller.KorisnickiProfil" />
-<<<<<<< HEAD
-        <activity android:name=".controller.QrScener" />
-        android:theme="@style/Theme.AppCompat.Light"
-        <activity android:name=".controller.QRGenerator"></activity>
-=======
+        <activity android:name=".controller.QrScener"
+        android:theme="@style/Theme.AppCompat.Light"/>
+        <activity android:name=".controller.QRGenerator"/>
         <activity android:name=".controller.Recenzija" />
         <activity android:name=".controller.RecenzijeIspis"></activity>
->>>>>>> 7047cc49f0277f51db637754c1b59caf767d5892
     </application>
 
 </manifest>
