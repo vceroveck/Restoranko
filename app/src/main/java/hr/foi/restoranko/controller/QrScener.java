@@ -24,6 +24,14 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
 
+
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class QrScener extends AppCompatActivity  implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
@@ -46,6 +54,9 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     }
 
     public void validirajNarudzbuDostave(final String result) {
+
+
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(QrScener.this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -140,6 +151,13 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     public void displayAlertMessage(String message, DialogInterface.OnClickListener listener) {
         new AlertDialog.Builder(getApplicationContext()).setMessage(message).setPositiveButton("OK", listener).setNegativeButton("Cancel", null).create().show();
+    }
+
+
+    private String dohvatiID (){
+        String ba="";
+
+        return  ba;
     }
 
     @Override
