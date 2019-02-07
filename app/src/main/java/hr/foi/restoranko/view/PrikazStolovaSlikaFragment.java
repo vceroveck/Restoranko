@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +81,9 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
                         @Override
                         public void onComplete() {
                             if (slobodan[0]) {
-                                onOdabirStolaCompleteListener.OnOdabirStolaCompleteListener(odabraniStol);
+                                Intent returnDataIntent = getActivity().getIntent();
+                                returnDataIntent.putExtra("stolId", odabraniStol);
+                                onOdabirStolaCompleteListener.OnOdabirStolaCompleteListener(returnDataIntent);
                             } else {
                                 Toast.makeText(getContext(), "Stol nije moguće rezervirati", Toast.LENGTH_LONG).show();
                             }
@@ -94,7 +95,7 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
 
     }
 
-    private void ProvjeriDostupnostStola(final boolean[] slobodan, final String restoran, final String odabraniStol, final String dolazak, final String odlazak, final OnCompleteListener onCompleteListener) {
+    private void ProvjeriDostupnostStola(final boolean[] slobodan, String restoran, String odabraniStol, final String dolazak, final String odlazak, final OnCompleteListener onCompleteListener) {
 
         final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("rezervacija").child(restoran+"_"+odabraniStol);
         databaseReference.orderByChild("odlazak").startAt(dolazak).limitToFirst(1).addValueEventListener(new ValueEventListener() {
@@ -103,22 +104,18 @@ public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolov
                 if(dataSnapshot.exists()) {
                     for(DataSnapshot data:dataSnapshot.getChildren()){
                         String postojeciDolazak=data.child("dolazak").getValue().toString();
-                        Log.i("dolazak", postojeciDolazak+"->"+restoran+"_"+odabraniStol);
                         if(Long.parseLong(postojeciDolazak)<Long.parseLong(odlazak)){
                             slobodan[0]=false;
-                            databaseReference.removeEventListener(this);
                             onCompleteListener.onComplete();
                         }
                         else{
                             slobodan[0]=true;
-                            databaseReference.removeEventListener(this);
                             onCompleteListener.onComplete();
                         }
                     }
                 }
                 else{
                     slobodan[0]=true;
-                    databaseReference.removeEventListener(this);
                     onCompleteListener.onComplete();
                 }
             }

@@ -64,7 +64,9 @@ public class Menu extends AppCompatActivity {
                         }
                         break;
                     case 1:
-                        finish();
+                        Intent intent = new Intent(Menu.this, hr.foi.restoranko.controller.Rezervacija.class);
+                        intent.putExtra("restoranko", restoran);
+                        startActivity(intent);
 
                         prikaz[0]--;
                         break;

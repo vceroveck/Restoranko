@@ -24,9 +24,7 @@ public class OdabirStolaActivity extends AppCompatActivity
         setContentView(R.layout.activity_odabir_stola);
         PrikazStolovaManager.getInstance().setDependencies(this, (ConstraintLayout) findViewById(R.id.cosnt_layout), new OnOdabirStolaCompleteListener() {
             @Override
-            public void OnOdabirStolaCompleteListener(String odabraniStol) {
-                Intent returnDataIntent = getIntent();
-                returnDataIntent.putExtra("stolId", odabraniStol);
+            public void OnOdabirStolaCompleteListener(Intent returnDataIntent) {
                 setResult(Activity.RESULT_OK, returnDataIntent);
                 finish();
             }

@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,11 +16,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -38,14 +34,11 @@ public class Rezervacija extends AppCompatActivity {
     private Restoran restoran;
     int godina = 0, mjesec, dan;
     TextView odlazak;
-    private String stol="";
-    hr.foi.restoranko.model.Rezervacija rezervacija;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rezervacija);
-
         restoran = getIntent().getExtras().getParcelable("restoranko");
 
         TextView nazivRestorana = findViewById(R.id.rezervacijaNazivRestorana);
@@ -91,7 +84,7 @@ public class Rezervacija extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Rezervacija.this, hr.foi.restoranko.controller.Menu.class);
                 intent.putExtra("restoranko", restoran);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
@@ -102,16 +95,15 @@ public class Rezervacija extends AppCompatActivity {
                 try {
                     dateDolazak[0] = (Date) formatter.parse(String.valueOf(dolazak.getText()));
                     dateOdlazak[0] = (Date) formatter.parse(String.valueOf(odlazak.getText()));
-                    Intent intent = new Intent(Rezervacija.this, OdabirStolaActivity.class);
-                    intent.putExtra("restoranId", String.valueOf(restoran.getRestoranId()));
-                    intent.putExtra("dolazak", String.valueOf(dateDolazak[0].getTime()));
-                    intent.putExtra("odlazak", String.valueOf(dateOdlazak[0].getTime()));
-                    startActivityForResult(intent, 0);
                 } catch (ParseException e) {
-                    Toast.makeText(getBaseContext(), "Najprije definirajte termin rezervacije", Toast.LENGTH_SHORT).show();
+                    Log.i("errorDatum", e.getMessage());
                     e.printStackTrace();
                 }
-
+                Intent intent = new Intent(Rezervacija.this, OdabirStolaActivity.class);
+                intent.putExtra("restoranId", String.valueOf(restoran.getRestoranId()));
+                intent.putExtra("dolazak", String.valueOf(dateDolazak[0].getTime()));
+                intent.putExtra("odlazak", String.valueOf(dateOdlazak[0].getTime()));
+                startActivityForResult(intent, 0);
 
             }
         });
@@ -128,11 +120,14 @@ public class Rezervacija extends AppCompatActivity {
                     Toast.makeText(Rezervacija.this, "Odaberite neko jelo",
                             Toast.LENGTH_SHORT).show();
                 }
-                else if(stol==""){
-                    Toast.makeText(getBaseContext(), "Odaberite stol", Toast.LENGTH_SHORT).show();
-                }
+                //provjera jel odabran stol
                 else {
                     //šalji u bazu
+
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    String key;
+
+
                     try {
                         dateDolazak[0] = (Date) formatter.parse(String.valueOf(dolazak.getText()));
                         dateOdlazak[0] = (Date) formatter.parse(String.valueOf(odlazak.getText()));
@@ -141,18 +136,16 @@ public class Rezervacija extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), String.valueOf(dateDolazak[0].getTime()), String.valueOf(dateOdlazak[0].getTime()), restoran.getNazivRestorana());
+                    String odabraniStol="stol1";
 
-                    final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    String key=databaseReference.push().getKey();
-                    databaseReference.child("rezervacija").child(restoran.getRestoranId()+"_"+stol).child(key).setValue(rezervacija);
-
-                    databaseReference.child("user").child(Korisnik.prijavljeniKorisnik.getuId().toString()).child("rezervacijeKorisnika").child(key).child("potvrdeno").setValue(false);
+                    hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(Korisnik.prijavljeniKorisnik.getKorisnickoIme(), String.valueOf(dateDolazak[0].getTime()), String.valueOf(dateOdlazak[0].getTime()), restoran.getNazivRestorana());
+                    key = mDatabase.push().getKey();
+                    mDatabase.child("rezervacija").child(restoran.getRestoranId()+"_"+odabraniStol).child(key).setValue(rezervacija);
 
                     int brojJela = 0;
 
                     for(RezerviraniJelovnik rj : RezerviraniJelovnik.listaRezerviranihJela) {
-                        DatabaseReference mRef =  FirebaseDatabase.getInstance().getReference().child("rezerviraniJelovnici").child(String.valueOf(brojJela++));
+                        DatabaseReference mRef =  FirebaseDatabase.getInstance().getReference().child("rezerviraniJelovnici").child(String.valueOf(brojJela++)+key);
                         mRef.child("jelovnikId").setValue(rj.getJelovnik().getJelovnikId());
                         mRef.child("kolicina").setValue(rj.getKolicina());
                         mRef.child("rezervacijaId").setValue(rezervacija.getRezervacijaId());
@@ -227,12 +220,10 @@ public class Rezervacija extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==0){
-            stol=data.getStringExtra("stolId");
-        }
-        else if(requestCode ==1){
 
-        }
+        Log.i("gotovo", "gotovo");
+
+        Toast.makeText(this, data.getStringExtra("stolId"), Toast.LENGTH_LONG).show();
 
     }
 
