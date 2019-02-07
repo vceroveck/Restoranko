@@ -24,8 +24,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
 
-
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +37,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DohvacanjeSifreRezervacije();
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_qr_scener);
         scannerView = new ZXingScannerView(this);
@@ -75,9 +74,9 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
         builder.setMessage(result);
         if (result.equals(String.valueOf(sifra))) {
-            builder.setMessage("Narudžba uspješno dostavljenja");
+            builder.setMessage("Rezervacija potvrdena");
         } else {
-            builder.setMessage("Kriva adresa");
+            builder.setMessage("Greska sa QR kodom");
         }
 
         AlertDialog alert = builder.create();
@@ -86,7 +85,34 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
+
+
+
+
         this.validirajNarudzbuDostave(scanResult);
+
+    }
+
+
+    public String DohvacanjeSifreRezervacije(){
+        String ba="";
+        final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("rezervacija").child("1_stol1");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+
+                    sifra=data.getKey();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return  ba;
 
     }
 
