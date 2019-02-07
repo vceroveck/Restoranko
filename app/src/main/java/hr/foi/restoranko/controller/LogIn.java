@@ -32,6 +32,8 @@ public class LogIn extends AppCompatActivity {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
         Button btnLogIn=(Button) findViewById(R.id.btnLogin);
+        Button btnscener= (Button) findViewById(R.id.btnscener) ;
+        Button generator=(Button) findViewById(R.id.generator);
 
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,22 @@ public class LogIn extends AppCompatActivity {
                 catch (Exception ex){
                     Toast.makeText(LogIn.this, "Greška u prijavi ili neispravni podaci!", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+
+        btnscener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogIn.this, QrScener.class));
+            }
+        });
+
+        generator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LogIn.this, QRGenerator.class));
+
             }
         });
     }
