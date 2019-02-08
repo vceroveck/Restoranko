@@ -43,18 +43,12 @@
         <activity
             android:name=".controller.Favoriti"
             android:label="Omiljeni restorani"
-<<<<<<< HEAD
             android:parentActivityName=".controller.KorisnickiProfil" />
         <activity
             android:name=".controller.MojeRezervacije"
-=======
             android:parentActivityName=".controller.KorisnickiProfil"/>
         <activity android:name=".controller.OdabirStolaActivity"
             android:label="Odabir stola"/>
-        <activity android:name=".controller.MojeRezervacije"
->>>>>>> grafickiPrikazStolova
-            android:label="Moje rezervacije"
-            android:parentActivityName=".controller.KorisnickiProfil" />
         <activity android:name=".controller.QrScener"
         android:theme="@style/Theme.AppCompat.Light"/>
         <activity android:name=".controller.QRGenerator"/>
