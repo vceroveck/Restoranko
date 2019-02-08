@@ -228,7 +228,12 @@ public class Rezervacija extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==0){
-            stol=data.getStringExtra("stolId");
+            try {
+                stol=data.getStringExtra("stolId");
+            }
+            catch (Exception ex){
+                ex.printStackTrace();
+            }
         }
         else if(requestCode ==1){
 
