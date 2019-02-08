@@ -1,13 +1,22 @@
 package hr.foi.restoranko.view;
 
-public class StoloviRecyclerAdapterItem {
-    private String stol;
+import android.view.View;
+import android.widget.Button;
 
-    public StoloviRecyclerAdapterItem(String stol){
+public class StoloviRecyclerAdapterItem {
+    private Button stol;
+    private OnOdabirStolaCompleteListener onOdabirStolaCompleteListener;
+
+    public StoloviRecyclerAdapterItem(Button stol, OnOdabirStolaCompleteListener onOdabirStolaCompleteListener){
         this.stol = stol;
+        this.onOdabirStolaCompleteListener=onOdabirStolaCompleteListener;
     }
 
-    public String getStol(){
+    public Button getStol(){
         return stol;
+    }
+
+    public OnOdabirStolaCompleteListener getOnOdabirStolaCompleteListener() {
+        return onOdabirStolaCompleteListener;
     }
 }

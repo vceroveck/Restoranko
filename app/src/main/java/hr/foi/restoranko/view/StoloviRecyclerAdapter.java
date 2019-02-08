@@ -18,12 +18,14 @@ import hr.foi.restoranko.R;
 
 public class StoloviRecyclerAdapter extends RecyclerView.Adapter<StoloviRecyclerAdapter.StoloviViewHolder> {
     private ArrayList<StoloviRecyclerAdapterItem> mListaStolovi;
+    View.OnClickListener onClickListener;
 
     public static class StoloviViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
-        public StoloviViewHolder(View itemView) {
+        public Button stol;
+        public StoloviViewHolder(View itemView, View.OnClickListener onClickListener) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textViewStol);
+            stol = itemView.findViewById(R.id.textViewStol);
+            stol.setOnClickListener(onClickListener);
         }
     }
 
@@ -35,16 +37,20 @@ public class StoloviRecyclerAdapter extends RecyclerView.Adapter<StoloviRecycler
     @Override
     public StoloviViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_stolovi, parent, false);
-        StoloviViewHolder stoloviViewHolder = new StoloviViewHolder(view);
+        StoloviViewHolder stoloviViewHolder = new StoloviViewHolder(view, this.onClickListener);
         return stoloviViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(StoloviViewHolder holder, int position){
-        StoloviRecyclerAdapterItem currentItem=mListaStolovi.get(position);
-
-        holder.textView.setText(currentItem.getStol());
-        Log.i("stolovic", "jey");
+    public void onBindViewHolder(final StoloviViewHolder holder, int position){
+        final StoloviRecyclerAdapterItem currentItem=mListaStolovi.get(position);
+        holder.stol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentItem.getOnOdabirStolaCompleteListener().OnOdabirStolaCompleteListener(currentItem.getStol().getTag().toString());
+            }
+        });
+        holder.stol.setText(currentItem.getStol().getText());
     }
 
     @Override

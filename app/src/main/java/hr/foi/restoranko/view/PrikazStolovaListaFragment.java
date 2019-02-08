@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -64,6 +65,7 @@ public class PrikazStolovaListaFragment extends Fragment implements PrikazStolov
                 for(DataSnapshot data:dataSnapshot.getChildren()){
                     final String stol=data.child("oznaka").getValue().toString();
                     final String sifraStola=restoran+"_"+data.getKey();
+                    final ArrayList<String> listaStolova=new ArrayList<>();
 
                     databaseReference.child("rezervacija").child(sifraStola).orderByChild("odlazak").addValueEventListener(new ValueEventListener() {
                         @Override
@@ -71,15 +73,24 @@ public class PrikazStolovaListaFragment extends Fragment implements PrikazStolov
                             for(DataSnapshot data:dataSnapshot.getChildren()){
                                 if(Long.parseLong(data.child("odlazak").getValue().toString())>Long.parseLong(dolazak)){
                                     if(Long.parseLong(data.child("dolazak").getValue().toString())>Long.parseLong(odlazak)){
-                                        dodajGumb(stol);
+                                        if(!listaStolova.contains(stol)){
+                                            listaStolova.add(stol);
+                                            dodajGumb(stol);
+                                        }
                                     }
                                 }
                                 else{
-                                    dodajGumb(stol);
+                                    if(!listaStolova.contains(stol)){
+                                        listaStolova.add(stol);
+                                        dodajGumb(stol);
+                                    }
                                 }
                             }
                             if(!dataSnapshot.exists()){
-                                dodajGumb(stol);
+                                if(!listaStolova.contains(stol)){
+                                    listaStolova.add(stol);
+                                    dodajGumb(stol);
+                                }
                             }
                         }
 
@@ -99,9 +110,13 @@ public class PrikazStolovaListaFragment extends Fragment implements PrikazStolov
 
     }
 
-    private void dodajGumb(String stol){
+    private void dodajGumb(final String stol){
         int position=mListaStolova.size();
-        mListaStolova.add(position, new StoloviRecyclerAdapterItem(stol));
+        Button button=new Button(getActivity());
+        button.setText(stol);
+        button.setTag(stol);
+
+        mListaStolova.add(position, new StoloviRecyclerAdapterItem(button, this.onOdabirStolaCompleteListener));
         mAdapter.notifyItemInserted(position);
     }
 
