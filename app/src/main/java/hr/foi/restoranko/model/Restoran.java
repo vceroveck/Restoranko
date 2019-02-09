@@ -2,6 +2,8 @@ package hr.foi.restoranko.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
 import hr.foi.restoranko.view.Slika;
 
 @SuppressLint("ParcelCreator")
@@ -106,7 +108,8 @@ public class Restoran implements Parcelable {
     public Slika getSlikaRestorana() {
         return slikaRestorana;
     }
-    public void setSlikaRestorana(Slika slikaRestorana){
+
+    public void setSlikaRestorana(Slika slikaRestorana) {
         this.slikaRestorana = slikaRestorana;
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,6 +93,27 @@ public class RestaurantDetails extends AppCompatActivity {
         adresa.setText(restoran.getAdresa());
         kontakt.setText(restoran.getKontakt());
         webAdresa.setText(restoran.getWebLink());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("restoran");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+
+                    long _id = (long) datas.child("restoranId").getValue();
+                    if(_id == restoran.getRestoranId()) {
+                        long _brojPregleda = (long) datas.child("brojPregleda").getValue();
+                        DatabaseReference updateData = FirebaseDatabase.getInstance().getReference("restoran").child(String.valueOf(restoran.getRestoranId()));
+                        updateData.child("brojPregleda").setValue(_brojPregleda+1);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     //provjeri je li restoran označen kao favorit
