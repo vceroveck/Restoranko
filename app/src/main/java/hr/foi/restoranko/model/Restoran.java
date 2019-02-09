@@ -2,6 +2,8 @@ package hr.foi.restoranko.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
 import hr.foi.restoranko.view.Slika;
 
 @SuppressLint("ParcelCreator")
@@ -14,8 +16,11 @@ public class Restoran implements Parcelable {
     private String slika;
     private String webLink;
     private Slika slikaRestorana;
+    private long brojPregleda;
+    private long brojOznakaOmiljeno;
+    private double prosjecnaOcjena;
 
-    public Restoran(long restoranId, String adresa, String kontakt, String nazivRestorana, String opis, String slika, String webLink) {
+    public Restoran(long restoranId, String adresa, String kontakt, String nazivRestorana, String opis, String slika, String webLink, long brojPregleda) {
         this.restoranId = restoranId;
         this.adresa = adresa;
         this.kontakt = kontakt;
@@ -23,6 +28,9 @@ public class Restoran implements Parcelable {
         this.opis = opis;
         this.slika = slika;
         this.webLink = webLink;
+        this.brojPregleda = brojPregleda;
+        this.brojOznakaOmiljeno = 0;
+        this.prosjecnaOcjena = 0;
     }
 
     protected Restoran(Parcel in) {
@@ -106,7 +114,8 @@ public class Restoran implements Parcelable {
     public Slika getSlikaRestorana() {
         return slikaRestorana;
     }
-    public void setSlikaRestorana(Slika slikaRestorana){
+
+    public void setSlikaRestorana(Slika slikaRestorana) {
         this.slikaRestorana = slikaRestorana;
     }
 
@@ -124,5 +133,25 @@ public class Restoran implements Parcelable {
         dest.writeString(opis);
         dest.writeString(slika);
         dest.writeString(webLink);
+    }
+
+    public long getBrojPregleda() {
+        return brojPregleda;
+    }
+
+    public long getBrojOznakaOmiljeno() {
+        return brojOznakaOmiljeno;
+    }
+
+    public void setBrojOznakaOmiljeno(long brojOznakaOmiljeno) {
+        this.brojOznakaOmiljeno = brojOznakaOmiljeno;
+    }
+
+    public double getProsjecnaOcjena() {
+        return prosjecnaOcjena;
+    }
+
+    public void setProsjecnaOcjena(double prosjecnaOcjena) {
+        this.prosjecnaOcjena = prosjecnaOcjena;
     }
 }

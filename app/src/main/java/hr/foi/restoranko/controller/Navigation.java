@@ -12,6 +12,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.widget.AdapterView;
@@ -36,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import hr.foi.restoranko.R;
@@ -46,7 +50,7 @@ import hr.foi.restoranko.model.RezerviraniJelovnik;
 import hr.foi.restoranko.view.Slika;
 import hr.foi.restoranko.view.SuccessListener;
 
-public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private FirebaseAuth firebaseAuth;
     private DrawerLayout drawer;
@@ -58,6 +62,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private ListView mDrawerList;
     private ArrayAdapter<Object> mAdapter;
     private SearchView pretraga;
+    private boolean pocetakPrograma = true;
 
     public static List<Restoran> listaRestorana = new ArrayList<>();
 
@@ -84,7 +89,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        PostaviPretraguRestorana();
+        PostaviElementeNavigacije();
         DohvatiSveRestorane();
 
     }
@@ -98,7 +103,82 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         startActivity(intent);
     }
 
-    private void PostaviPretraguRestorana() {
+    private void PostaviElementeNavigacije() {
+        final Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
+        List<String> categories = new ArrayList<String>();
+        categories.add("Bez filtera");
+        categories.add("Top 10 prema broju pregleda");
+        categories.add("Top 10 s najviše oznaka 'omiljeno'");
+        categories.add("Top 10 s najboljim ocjenama");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch(i) {
+                    case 0:
+                        if(pocetakPrograma) {
+                            pocetakPrograma = false;
+                        }
+                        else {
+                            PretragaRestorana("");
+                        }
+                        break;
+                    case 1:
+                        container.removeAllViews();
+
+                        Collections.sort(listaRestorana, new Comparator<Restoran>() {
+                            public int compare(Restoran se1, Restoran se2) {
+                                return (int) (se2.getBrojPregleda() - se1.getBrojPregleda());
+                            }
+                        });
+
+                        for(int j = 0; j<10; j++) {
+                            Restoran restoran = listaRestorana.get(j);
+                            PrikaziRestoran(restoran);
+                        }
+
+                        break;
+                    case 2:
+                        container.removeAllViews();
+
+                        Collections.sort(listaRestorana, new Comparator<Restoran>() {
+                            public int compare(Restoran se1, Restoran se2) {
+                                return (int) (se2.getBrojOznakaOmiljeno() - se1.getBrojOznakaOmiljeno());
+                            }
+                        });
+
+                        for(int j = 0; j<10; j++) {
+                            Restoran restoran = listaRestorana.get(j);
+                            PrikaziRestoran(restoran);
+                        }
+
+                        break;
+                    case 3:
+                        container.removeAllViews();
+
+                        Collections.sort(listaRestorana, new Comparator<Restoran>() {
+                            public int compare(Restoran se1, Restoran se2) {
+                                return (int) (se2.getProsjecnaOcjena() - se1.getProsjecnaOcjena());
+                            }
+                        });
+
+                        for(int j = 0; j<10; j++) {
+                            Restoran restoran = listaRestorana.get(j);
+                            Log.v("--->", String.valueOf(restoran.getProsjecnaOcjena()));
+                            PrikaziRestoran(restoran);
+                        }
+                        break;
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                return;
+            }
+        });
+
         pretraga = (SearchView)findViewById(R.id.pretraga);
         pretraga.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -139,10 +219,12 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
                     String _opis = datas.child("opis").getValue().toString();
                     String _slika = datas.child("slika").getValue().toString();
                     String _link = datas.child("webLink").getValue().toString();
+                    long _brojPregleda = (long) datas.child("brojPregleda").getValue();
 
-                    final Restoran novi = new Restoran(_id, _adresa, _kontakt, _naziv, _opis, _slika, _link);
+                    final Restoran novi = new Restoran(_id, _adresa, _kontakt, _naziv, _opis, _slika, _link, _brojPregleda);
                     listaRestorana.add(novi);
                     DohvatiSlikuRestorana(novi);
+                    DohvatiOstaleAtribute(novi);
                 }
 
                 View spinner = (View) findViewById(R.id.ucitavanjeRestorana);
@@ -153,6 +235,71 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void DohvatiOstaleAtribute(final Restoran novi) {
+        final long[] brojOmiljeno = {0};
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("omiljeniRestorani");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot datas : dataSnapshot.getChildren()) {
+
+                    long _id = (long) datas.child("restoran").getValue();
+                    if (_id == novi.getRestoranId()) {
+                        brojOmiljeno[0] = brojOmiljeno[0] + 1;
+                        novi.setBrojOznakaOmiljeno(brojOmiljeno[0]);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        final long[] broj = {0};
+        final long[] prosjecnaOcjena = {0};
+
+        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("recenzije");
+        reference2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot datas: dataSnapshot.getChildren()){
+
+                    String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
+                    if(_nazivRestorana.equals(novi.getNazivRestorana())) {
+                        broj[0] = broj[0] + 1;
+
+                        switch(datas.child("recenzijaLjestvica").getValue().toString()) {
+                            case "fenomenalno":
+                                prosjecnaOcjena[0] += 5;
+                                break;
+                            case "super":
+                                prosjecnaOcjena[0] += 4;
+                                break;
+                            case "jako loše":
+                                prosjecnaOcjena[0] += 1;
+                                break;
+                            case "dobro":
+                                prosjecnaOcjena[0] += 3;
+                                break;
+                            default:
+                                prosjecnaOcjena[0] += 2;
+                                break;
+                        }
+
+                        novi.setProsjecnaOcjena((double)prosjecnaOcjena[0]/broj[0]);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 
     //Metoda koja dohvaća sliku restorana
@@ -332,4 +479,5 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
             }
         }
     }
+
 }
