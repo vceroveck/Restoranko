@@ -21,43 +21,45 @@
         <activity
             android:name=".controller.Registration"
             android:label="Registracija"
-            android:parentActivityName=".controller.MainActivity" />
+            android:parentActivityName=".controller.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.LogIn"
             android:label="Prijava"
-            android:parentActivityName=".controller.MainActivity" />
-        <activity android:name=".controller.Navigation">
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".controller.KorisnickiProfil"
-            android:parentActivityName=".controller.Navigation" />
-        <activity android:name=".controller.Password"
-                  android:label="Promjena lozinke"
-                  android:parentActivityName=".controller.KorisnickiProfil"/>
-        <activity android:name=".controller.RestaurantDetails" />
-        <activity android:name=".controller.Menu" />
-        <activity
-            android:name=".controller.Rezervacija"
-            android:label="Rezervacija" />
-        <activity
-            android:name=".controller.Favoriti"
-            android:label="Omiljeni restorani"
-            android:parentActivityName=".controller.KorisnickiProfil" />
-        <activity
-            android:name=".controller.MojeRezervacije"
-            android:parentActivityName=".controller.KorisnickiProfil"/>
-        <activity android:name=".controller.OdabirStolaActivity"
-            android:label="Odabir stola"/>
-        <activity android:name=".controller.QrScener"
-        android:theme="@style/Theme.AppCompat.Light"/>
-        <activity android:name=".controller.QRGenerator"/>
-        <activity android:name=".controller.Recenzija"
-                  android:label="Unos recenzije"
-                  android:parentActivityName=".controller.MojeRezervacije"/>
-        <activity android:name=".controller.RecenzijeIspis"
-                  android:label="Sve recenzije"
-                  android:parentActivityName=".controller.Navigation"></activity>
-    </application>
+            android:parentActivityName=".controller.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+     <activity android:name=".controller.Navigation">
+         android:theme="@style/AppTheme.NoActionBar">
+     </activity>
+     <activity
+         android:name=".controller.KorisnickiProfil"
+         android:parentActivityName=".controller.Navigation" />
+     <activity android:name=".controller.Password"
+               android:label="Promjena lozinke"
+               android:parentActivityName=".controller.KorisnickiProfil"/>
+     <activity android:name=".controller.RestaurantDetails" />
+     <activity android:name=".controller.Menu" />
+     <activity
+         android:name=".controller.Rezervacija"
+         android:label="Rezervacija" />
+     <activity
+         android:name=".controller.Favoriti"
+         android:label="Omiljeni restorani"
+         android:parentActivityName=".controller.KorisnickiProfil" />
+     <activity
+         android:name=".controller.MojeRezervacije"
+         android:parentActivityName=".controller.KorisnickiProfil"/>
+     <activity android:name=".controller.OdabirStolaActivity"
+         android:label="Odabir stola"/>
+     <activity android:name=".controller.QrScener"
+     android:theme="@style/Theme.AppCompat.Light"/>
+     <activity android:name=".controller.QRGenerator"/>
+     <activity android:name=".controller.Recenzija"
+               android:label="Unos recenzije"
+               android:parentActivityName=".controller.MojeRezervacije"/>
+     <activity android:name=".controller.RecenzijeIspis"
+               android:label="Sve recenzije"
+               android:parentActivityName=".controller.Navigation"></activity>
+ </application>
 
 </manifest>

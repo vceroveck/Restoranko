@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:background="#1f2530">
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.Registration">
+    tools:context=".controller.Registration"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,7 +39,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/surnameValue"
@@ -42,7 +56,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameValue" />
+            app:layout_constraintTop_toBottomOf="@+id/nameValue"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/usernameValue"
@@ -57,7 +73,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/surnameValue" />
+            app:layout_constraintTop_toBottomOf="@+id/surnameValue"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/passwordValue"
@@ -72,7 +90,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailValue" />
+            app:layout_constraintTop_toBottomOf="@+id/emailValue"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/confirmPasswordValue"
@@ -87,7 +107,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordValue" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordValue"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/registerButton"
@@ -100,7 +122,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordValue" />
+            app:layout_constraintTop_toBottomOf="@+id/confirmPasswordValue"
+            android:background="@drawable/pozadina_gumb"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"/>
 
         <EditText
             android:id="@+id/emailValue"
@@ -115,8 +140,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/usernameValue" />
+            app:layout_constraintTop_toBottomOf="@+id/usernameValue"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
+
+    </LinearLayout>

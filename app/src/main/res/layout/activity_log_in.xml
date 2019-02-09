@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:background="#1f2530">
+
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,28 +18,34 @@
     android:layout_height="match_parent"
     tools:context=".controller.Registration">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <CheckBox
             android:id="@+id/spremitiPrijavu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_width="269dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="8dp"
+            android:buttonTint="#FFFFFF"
             android:text="@string/spremiPrijavu"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/common_google_signin_btn_text_light_default"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtLozinka" />
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="182dp"
-            android:layout_height="162dp"
+            android:layout_width="160dp"
+            android:layout_height="130dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="64dp"
             android:layout_marginEnd="8dp"
@@ -36,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo1" />
+            app:srcCompat="@drawable/logo" />
 
 
         <EditText
@@ -52,7 +69,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo" />
+            app:layout_constraintTop_toBottomOf="@+id/logo"
+            android:maxLines="1"
+            android:drawableLeft="@drawable/ic_email_white_24dp"
+            android:padding="8dp"
+            android:drawablePadding="12dp"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/txtLozinka"
@@ -66,7 +89,13 @@
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+            android:maxLines="1"
+            android:drawableLeft="@drawable/ic_lock_white_24dp"
+            android:padding="8dp"
+            android:drawablePadding="12dp"
+            android:textColorHint="#FFFFFF"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -79,8 +108,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spremitiPrijavu" />
+            app:layout_constraintTop_toBottomOf="@+id/spremitiPrijavu"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:background="@drawable/pozadina_gumb"
+            android:padding="16dp"
+            android:clickable="true"/>
 
     </android.support.constraint.ConstraintLayout>
 
+    </LinearLayout>
+
 </ScrollView>
+
+</LinearLayout>
