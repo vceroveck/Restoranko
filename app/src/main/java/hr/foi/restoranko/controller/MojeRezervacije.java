@@ -1,8 +1,10 @@
 package hr.foi.restoranko.controller;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Calendar;
+import java.util.Locale;
+
+import javax.security.auth.login.LoginException;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
@@ -34,37 +41,50 @@ public class MojeRezervacije extends AppCompatActivity {
     }
 
     private void DohvatiSveMojeRezervacije() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("rezervacija");
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika").orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot datas: dataSnapshot.getChildren()){
-                    try {
-                        String korisnik = datas.child("korisnik").getValue().toString();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot data:dataSnapshot.getChildren()){
+                    //Log.i("rezervacija", data.getKey());
+                    final String sifraStola=data.child("stol").getValue().toString();
+                    final String idRezervacije=data.getKey();
+                    reference.child("rezervacija").child(sifraStola).orderByKey().equalTo(idRezervacije).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for(DataSnapshot data:dataSnapshot.getChildren()){
+                                TextView nemaRezervacija = (TextView) container.findViewById(R.id.nemaRezervacija);
+                                nemaRezervacija.setVisibility(View.GONE);
 
-                        if (korisnik.equals(Korisnik.prijavljeniKorisnik.getKorisnickoIme())) {
-                            TextView nemaRezervacija = (TextView) container.findViewById(R.id.nemaRezervacija);
-                            nemaRezervacija.setVisibility(View.GONE);
+                                Calendar cal = Calendar.getInstance(Locale.GERMANY);
+                                cal.setTimeInMillis(Long.parseLong(data.child("dolazak").getValue().toString()));
+                                String _dolazak = DateFormat.format("dd.MM.yyyy. HH:mm", cal).toString();
+                                cal.setTimeInMillis(Long.parseLong(data.child("odlazak").getValue().toString()));
+                                String _odlazak=DateFormat.format("dd.MM.yyyy. HH:mm", cal).toString();
 
-                            long _rezervacija = (long) datas.child("rezervacijaId").getValue();
-                            String _dolazak = datas.child("dolazak").getValue().toString();
-                            String _odlazak = datas.child("odlazak").getValue().toString();
-                            String _nazivRestorana = datas.child("nazivRestorana").getValue().toString();
-                            long _potvrdaDolaska = (long) datas.child("potvrdaDolaska").getValue();
+                                long _rezervacija = 0;
+                                String _nazivRestorana = data.child("nazivRestorana").getValue().toString();
+                                long _potvrdaDolaska = (long) data.child("potvrdaDolaska").getValue();
 
-                            hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(_rezervacija, korisnik, _dolazak, _odlazak, _nazivRestorana, _potvrdaDolaska);
-                            Prikazi(rezervacija);
+                                hr.foi.restoranko.model.Rezervacija rezervacija = new hr.foi.restoranko.model.Rezervacija(_rezervacija, Korisnik.prijavljeniKorisnik.getKorisnickoIme(), _dolazak, _odlazak, _nazivRestorana, _potvrdaDolaska);
+                                Prikazi(rezervacija);
+                            }
                         }
-                    }
-                    catch (Exception e){}
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
     }
 
     private void Prikazi(final Rezervacija rezervacija) {

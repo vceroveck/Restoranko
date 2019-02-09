@@ -148,6 +148,8 @@ public class Rezervacija extends AppCompatActivity {
                     databaseReference.child("rezervacija").child(restoran.getRestoranId()+"_"+stol).child(key).setValue(rezervacija);
 
                     databaseReference.child("user").child(Korisnik.prijavljeniKorisnik.getuId().toString()).child("rezervacijeKorisnika").child(key).child("potvrdeno").setValue(false);
+                    databaseReference.child("user").child(Korisnik.prijavljeniKorisnik.getuId().toString()).child("rezervacijeKorisnika").child(key).child("stol").setValue(restoran.getRestoranId()+"_"+stol);
+
 
                     int brojJela = 0;
 
