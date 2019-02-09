@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.zxing.Result;
 
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Korisnik;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
@@ -101,8 +102,8 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     private void azuriranjePotvrdeDolaska(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference();
-        dbRef = database.getReference().child("rezervacija").child("1_stol1").child(sifra).child("potvrdaDolaska");
-        dbRef.setValue("1");
+        dbRef = database.getReference().child("user").child("orX6nid5x4SmTBRSigFGjj8w2Wk2").child("rezervacijeKorisnika").child(sifra).child("potvrdeno");
+        dbRef.setValue("true");
 
     }
 
@@ -116,7 +117,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     public void DohvacanjeSifreRezervacije(){
 
-        final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("rezervacija").child("1_stol1");
+        final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("user").child("orX6nid5x4SmTBRSigFGjj8w2Wk2").child("rezervacijeKorisnika");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -199,11 +200,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     }
 
 
-    private String dohvatiID (){
-        String ba="";
 
-        return  ba;
-    }
 
     @Override
     public void onDestroy() {
