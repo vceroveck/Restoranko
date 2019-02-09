@@ -17,9 +17,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Korisnik;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
@@ -28,6 +37,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private String sifra;
+    List<String> listSifri= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,26 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
         this.validirajNarudzbuDostave(scanResult);
+
+    }
+
+    private void potvrdaRezervacije(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    for(DataSnapshot data:dataSnapshot.getChildren()) {
+                        listSifri.add(data.getKey());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
