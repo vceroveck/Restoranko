@@ -36,13 +36,12 @@ import static android.Manifest.permission_group.CAMERA;
 public class QrScener extends AppCompatActivity  implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
-    
+
     List<String> listSifri= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_qr_scener);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
