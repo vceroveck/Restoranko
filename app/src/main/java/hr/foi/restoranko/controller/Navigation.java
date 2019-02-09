@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.widget.AdapterView;
@@ -84,7 +85,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        PostaviPretraguRestorana();
+        PostaviElementeNavigacije();
         DohvatiSveRestorane();
 
     }
@@ -98,7 +99,18 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         startActivity(intent);
     }
 
-    private void PostaviPretraguRestorana() {
+    private void PostaviElementeNavigacije() {
+        Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
+        List<String> categories = new ArrayList<String>();
+        categories.add("Bez filtera");
+        categories.add("Top 10 prema broju pregleda");
+        categories.add("Top 10 s najviše oznaka 'omiljeno'");
+        categories.add("Top 10 s najboljim ocjenama");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
         pretraga = (SearchView)findViewById(R.id.pretraga);
         pretraga.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
