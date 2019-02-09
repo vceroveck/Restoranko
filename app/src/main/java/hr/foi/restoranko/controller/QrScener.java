@@ -17,9 +17,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hr.foi.restoranko.R;
+import hr.foi.restoranko.model.Korisnik;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission_group.CAMERA;
@@ -27,12 +36,12 @@ import static android.Manifest.permission_group.CAMERA;
 public class QrScener extends AppCompatActivity  implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
-    private String sifra;
+
+    List<String> listSifri= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_qr_scener);
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -46,28 +55,28 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     }
 
     public void validirajNarudzbuDostave(final String result) {
+        potvrdaRezervacije();
         final AlertDialog.Builder builder = new AlertDialog.Builder(QrScener.this);
-        builder.setTitle("Scan Result");
+        builder.setTitle("Rezultat skeniranja");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 scannerView.resumeCameraPreview(QrScener.this);
             }
         });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(result));
-                startActivity(intent);
-            }
-        });
+
 
         builder.setMessage(result);
-        if (result.equals(String.valueOf(sifra))) {
-            builder.setMessage("Narudžba uspješno dostavljenja");
-        } else {
-            builder.setMessage("Kriva adresa");
+
+        for (int i=0; i<listSifri.size(); i++){
+
+            if (result.equals(listSifri.get(i))) {
+                builder.setMessage("Uspješna potvrda rezervacije");
+                azurirajRezervaciju(listSifri.get(i));
+            }
         }
+
+
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -77,6 +86,42 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         final String scanResult = String.valueOf(result);
         this.validirajNarudzbuDostave(scanResult);
 
+    }
+    private void azurirajRezervaciju(String sifra){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference baf=reference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika").child(sifra).child("potvrdeno");
+        baf.setValue("true");
+
+    }
+
+    private void potvrdaRezervacije() {
+        if (Korisnik.prijavljeniKorisnik != null) {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika");
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                listSifri.add(data.getKey());
+
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else{
+
+        }
     }
 
 

@@ -102,8 +102,7 @@ public class MojeRezervacije extends AppCompatActivity {
 
         rezervacijaPotvrda.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-
-                //tu je za potvrdu dolaska
+                startActivity(new Intent(MojeRezervacije.this, QrScener.class));
             }
         });
 
