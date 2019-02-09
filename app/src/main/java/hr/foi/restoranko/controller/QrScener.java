@@ -56,6 +56,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     }
 
     public void validirajNarudzbuDostave(final String result) {
+        potvrdaRezervacije();
         final AlertDialog.Builder builder = new AlertDialog.Builder(QrScener.this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -73,11 +74,20 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         });
 
         builder.setMessage(result);
-        if (result.equals(String.valueOf(sifra))) {
-            builder.setMessage("Narudžba uspješno dostavljenja");
-        } else {
-            builder.setMessage("Kriva adresa");
+
+        for (int i=0; i<listSifri.size(); i++){
+            Toast.makeText(getApplicationContext(), listSifri.get(i), Toast.LENGTH_LONG).show();
+            if (result.equals(listSifri.get(i))) {
+
+
+                builder.setMessage("Narudžba uspješno dostavljenja");
+                azurirajRezervaciju(listSifri.get(i));
+            }
         }
+
+         /*else {
+            builder.setMessage("Kriva adresa");
+        }*/
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -86,6 +96,13 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
         this.validirajNarudzbuDostave(scanResult);
+
+    }
+    private void azurirajRezervaciju(String sifra){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference baf=reference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika").child(sifra).child("potvrdeno");
+        baf.setValue("true");
 
     }
 
