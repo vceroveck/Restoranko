@@ -53,8 +53,8 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
             }
         }
     }
-
-    public void validirajNarudzbuDostave(final String result) {
+    // Dohvaca rezultat skeniranja i usporeduje ga sa podatkom iz baze
+    public void potvrdiRezervaciju(final String result) {
         potvrdaRezervacije();
         final AlertDialog.Builder builder = new AlertDialog.Builder(QrScener.this);
         builder.setTitle("Rezultat skeniranja");
@@ -84,9 +84,10 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     public void handleResult(Result result) {
         final String scanResult = String.valueOf(result);
-        this.validirajNarudzbuDostave(scanResult);
+        this.potvrdiRezervaciju(scanResult);
 
     }
+    //Azurira polje potvrdeno ako je rezervacija uspješno potvrdena
     private void azurirajRezervaciju(String sifra){
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -94,7 +95,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         baf.setValue("true");
 
     }
-
+    //Dohvaća ID od rezervacije
     private void potvrdaRezervacije() {
         if (Korisnik.prijavljeniKorisnik != null) {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika");
@@ -124,21 +125,17 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         }
     }
 
-
+    //Dopuštenje za kameru
     private boolean checkPermission() {
         return (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
     }
 
-    /*
-     * Asks phone/tablet user to allow camera scanning.
-     */
+    //Dijalog gdje se pita korisnika za dopuštenje da koristi kameru
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA);
     }
 
-    /*
-     * Starts camera scanner if it is allowed.
-     */
+
     public void onRequestPermissionsResult(int requestCode, String permission[], int grantResults[]) {
         switch (requestCode) {
             case REQUEST_CAMERA:
