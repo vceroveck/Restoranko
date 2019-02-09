@@ -36,7 +36,7 @@ import static android.Manifest.permission_group.CAMERA;
 public class QrScener extends AppCompatActivity  implements ZXingScannerView.ResultHandler {
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
-    private String sifra;
+    
     List<String> listSifri= new ArrayList<>();
 
     @Override
@@ -58,36 +58,26 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     public void validirajNarudzbuDostave(final String result) {
         potvrdaRezervacije();
         final AlertDialog.Builder builder = new AlertDialog.Builder(QrScener.this);
-        builder.setTitle("Scan Result");
+        builder.setTitle("Rezultat skeniranja");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 scannerView.resumeCameraPreview(QrScener.this);
             }
         });
-        builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(result));
-                startActivity(intent);
-            }
-        });
+
 
         builder.setMessage(result);
 
         for (int i=0; i<listSifri.size(); i++){
-            Toast.makeText(getApplicationContext(), listSifri.get(i), Toast.LENGTH_LONG).show();
+
             if (result.equals(listSifri.get(i))) {
-
-
-                builder.setMessage("Narudžba uspješno dostavljenja");
+                builder.setMessage("Uspješna potvrda rezervacije");
                 azurirajRezervaciju(listSifri.get(i));
             }
         }
 
-         /*else {
-            builder.setMessage("Kriva adresa");
-        }*/
+
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -106,24 +96,33 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
     }
 
-    private void potvrdaRezervacije(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    for(DataSnapshot data:dataSnapshot.getChildren()) {
-                        listSifri.add(data.getKey());
+    private void potvrdaRezervacije() {
+        if (Korisnik.prijavljeniKorisnik != null) {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika");
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+
+                        for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                                listSifri.add(data.getKey());
+
+
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
 
+        }
+        else{
+
+        }
     }
 
 
