@@ -20,7 +20,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             android:shrinkColumns="*"
-            android:stretchColumns="*"
+            android:stretchColumns="0,1,2"
             app:layout_constraintBottom_toTopOf="@+id/ispisUkupneCijene"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -48,12 +48,17 @@
                     android:background="#d1d0d0"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="+kol."/>
+                    android:text="+kol. "/>
                 <TextView
                     android:background="#d1d0d0"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:text="-kol."/>
+                <TextView
+                    android:background="#d1d0d0"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:text="      "/>
             </TableRow>
         </TableLayout>
 
