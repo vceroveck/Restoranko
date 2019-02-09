@@ -51,7 +51,7 @@ public class OdabirJelovnika extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot datas: dataSnapshot.getChildren()){
-                    if((long) datas.child("restoranId").getValue() == restoranId) {
+                    if(Long.parseLong(datas.child("restoranId").getValue().toString()) == restoranId) {
                         long _id = (long) datas.child("jelovnikId").getValue();
                         String _cijena = datas.child("cijena").getValue().toString();
                         String _naziv = datas.child("naziv").getValue().toString();
