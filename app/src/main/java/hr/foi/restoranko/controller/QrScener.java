@@ -115,25 +115,30 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
     }
 
 
-    public void DohvacanjeSifreRezervacije(){
+    public void DohvacanjeSifreRezervacije() {
+        if (Korisnik.prijavljeniKorisnik != null) {
 
-        final DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference().child("user").child("orX6nid5x4SmTBRSigFGjj8w2Wk2").child("rezervacijeKorisnika");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot data: dataSnapshot.getChildren()){
-                    ListaSifri.add(data.getKey());
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("user").child("orX6nid5x4SmTBRSigFGjj8w2Wk2").child("rezervacijeKorisnika");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        ListaSifri.add(data.getKey());
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+            });
 
 
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Nije moguće dohvatiti korisnika", Toast.LENGTH_LONG).show();
+        }
     }
 
 
