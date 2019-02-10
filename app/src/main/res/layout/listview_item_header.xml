@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:padding="10dp" >
+    android:padding="10dp"
+    android:background="#1f2530">
 
     <ImageView
         android:id="@+id/imgViewIcon"
@@ -15,7 +16,10 @@
         android:id="@+id/txtViewName"
         android:layout_width="150dp"
         android:layout_height="20dp"
-        android:layout_centerVertical="true"
         android:layout_below="@+id/imgViewIcon"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 </RelativeLayout>

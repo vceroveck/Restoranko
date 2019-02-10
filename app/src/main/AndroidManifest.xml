@@ -30,11 +30,13 @@
         </activity>
         <activity
             android:name=".controller.KorisnickiProfil"
-            android:parentActivityName=".controller.Navigation" />
+            android:parentActivityName=".controller.Navigation"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.Password"
             android:label="Promjena lozinke"
-            android:parentActivityName=".controller.KorisnickiProfil" />
+            android:parentActivityName=".controller.KorisnickiProfil"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".controller.RestaurantDetails" />
         <activity android:name=".controller.Menu" />
         <activity
