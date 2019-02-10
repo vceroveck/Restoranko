@@ -24,8 +24,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import hr.foi.graphicdisplayoftable.OdabirStolaActivity;
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
+import hr.foi.core.Korisnik;
 import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.model.RezerviraniJelovnik;
 

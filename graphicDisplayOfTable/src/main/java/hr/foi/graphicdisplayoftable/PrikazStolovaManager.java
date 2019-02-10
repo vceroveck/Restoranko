@@ -1,30 +1,17 @@
-package hr.foi.restoranko.controller;
+package hr.foi.graphicdisplayoftable;
 
-import android.app.Activity;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import java.security.KeyStore;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-
-import hr.foi.restoranko.R;
-import hr.foi.restoranko.view.OnOdabirStolaCompleteListener;
-import hr.foi.restoranko.view.PrikazStolovaListaFragment;
-import hr.foi.restoranko.view.PrikazStolovaSlikaFragment;
 
 public class PrikazStolovaManager
 {

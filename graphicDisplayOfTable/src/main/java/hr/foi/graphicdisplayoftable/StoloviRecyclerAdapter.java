@@ -1,20 +1,15 @@
-package hr.foi.restoranko.view;
+package hr.foi.graphicdisplayoftable;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
-import com.journeyapps.barcodescanner.ViewfinderView;
 
 import java.util.ArrayList;
 
-import hr.foi.graphicdisplayoftable.Stol;
-import hr.foi.restoranko.R;
 
 public class StoloviRecyclerAdapter extends RecyclerView.Adapter<StoloviRecyclerAdapter.StoloviViewHolder> {
     private ArrayList<StoloviRecyclerAdapterItem> mListaStolovi;

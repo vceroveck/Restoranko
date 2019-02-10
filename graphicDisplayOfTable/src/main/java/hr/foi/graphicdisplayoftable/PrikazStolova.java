@@ -1,8 +1,6 @@
-package hr.foi.restoranko.controller;
+package hr.foi.graphicdisplayoftable;
 
 import android.support.v4.app.Fragment;
-
-import hr.foi.restoranko.view.OnOdabirStolaCompleteListener;
 
 public interface PrikazStolova
 {

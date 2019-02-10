@@ -1,6 +1,5 @@
-package hr.foi.restoranko.view;
+package hr.foi.graphicdisplayoftable;
 
-import android.view.View;
 import android.widget.Button;
 
 public class StoloviRecyclerAdapterItem {

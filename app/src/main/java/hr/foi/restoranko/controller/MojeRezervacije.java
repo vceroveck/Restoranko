@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
+import hr.foi.core.Korisnik;
 import hr.foi.restoranko.model.Rezervacija;
 
 public class MojeRezervacije extends AppCompatActivity {

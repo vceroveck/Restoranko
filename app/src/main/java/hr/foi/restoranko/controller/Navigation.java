@@ -44,11 +44,11 @@ import java.util.List;
 
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Jelo;
-import hr.foi.restoranko.model.Korisnik;
+import hr.foi.core.Korisnik;
 import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.model.RezerviraniJelovnik;
-import hr.foi.restoranko.view.Slika;
-import hr.foi.restoranko.view.SuccessListener;
+import hr.foi.core.Slika;
+import hr.foi.core.SuccessListener;
 
 public class Navigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 

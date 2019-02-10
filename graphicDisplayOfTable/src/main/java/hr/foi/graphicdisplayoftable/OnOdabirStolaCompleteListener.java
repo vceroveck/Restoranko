@@ -1,4 +1,4 @@
-package hr.foi.restoranko.view;
+package hr.foi.graphicdisplayoftable;
 
 import android.content.Intent;
 

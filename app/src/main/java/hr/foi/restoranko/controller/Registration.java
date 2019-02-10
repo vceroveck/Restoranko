@@ -24,7 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
+import hr.foi.core.Korisnik;
 
 public class Registration extends AppCompatActivity {
     EditText ime,prezime,korime,email,lozinka,plozinka,slika;

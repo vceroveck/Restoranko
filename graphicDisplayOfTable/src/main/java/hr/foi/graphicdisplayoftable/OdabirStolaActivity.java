@@ -1,19 +1,13 @@
-package hr.foi.restoranko.controller;
+package hr.foi.graphicdisplayoftable;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import hr.foi.restoranko.R;
-import hr.foi.restoranko.view.OnOdabirStolaCompleteListener;
-import hr.foi.restoranko.view.PrikazStolovaSlikaFragment;
+import hr.foi.graphicdisplayoftable.PrikazStolovaManager;
+import hr.foi.graphicdisplayoftable.OnOdabirStolaCompleteListener;
 
 public class OdabirStolaActivity extends AppCompatActivity
 {

@@ -1,7 +1,5 @@
-package hr.foi.restoranko.view;
+package hr.foi.graphicdisplayoftable;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,8 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import hr.foi.restoranko.R;
-import hr.foi.restoranko.controller.PrikazStolova;
+
+import hr.foi.core.Slika;
 
 public class PrikazStolovaSlikaFragment extends Fragment implements PrikazStolova
 {

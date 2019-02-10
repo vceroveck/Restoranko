@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
-import hr.foi.restoranko.view.ChangeListener;
+import hr.foi.core.Korisnik;
+import hr.foi.core.ChangeListener;
 
 public class MainActivity extends AppCompatActivity {
     Button registration;

@@ -18,8 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
-import hr.foi.restoranko.view.ChangeListener;
+import hr.foi.core.Korisnik;
+import hr.foi.core.ChangeListener;
 
 public class LogIn extends AppCompatActivity {
     String email, password;

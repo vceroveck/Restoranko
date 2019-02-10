@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import hr.foi.restoranko.R;
-import hr.foi.restoranko.model.Korisnik;
-import hr.foi.restoranko.view.Slika;
+import hr.foi.core.Korisnik;
+import hr.foi.core.Slika;
 
 public class KorisnickiProfil extends AppCompatActivity {
     private static final int PICK_IMAGE = 1;

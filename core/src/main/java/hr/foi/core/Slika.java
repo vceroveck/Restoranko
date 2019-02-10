@@ -1,12 +1,10 @@
-package hr.foi.restoranko.view;
+package hr.foi.core;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,8 +17,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import hr.foi.restoranko.model.Korisnik;
 
 public class Slika {
     private Uri uriSlike;

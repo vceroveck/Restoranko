@@ -1,4 +1,4 @@
-package hr.foi.restoranko.model;
+package hr.foi.core;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,9 +15,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import hr.foi.restoranko.view.ChangeListener;
-import hr.foi.restoranko.view.Slika;
 
 public class Korisnik {
     private String ime;

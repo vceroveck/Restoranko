@@ -3,7 +3,7 @@ import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import hr.foi.restoranko.view.Slika;
+import hr.foi.core.Slika;
 
 @SuppressLint("ParcelCreator")
 public class Restoran implements Parcelable {

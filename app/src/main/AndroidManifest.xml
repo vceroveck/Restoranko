@@ -54,7 +54,7 @@
             android:parentActivityName=".controller.KorisnickiProfil"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".controller.OdabirStolaActivity"
+            android:name="hr.foi.graphicdisplayoftable.OdabirStolaActivity"
             android:label="Odabir stola"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
