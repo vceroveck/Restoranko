@@ -55,7 +55,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.OdabirStolaActivity"
-            android:label="Odabir stola" />
+            android:label="Odabir stola"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.QrScener"
             android:theme="@style/Theme.AppCompat.Light" />

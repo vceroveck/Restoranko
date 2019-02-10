@@ -28,7 +28,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TableRow
-                xmlns:android="http://schemas.android.com/apk/res/android">
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:foregroundTint="#FFFFFF">
                 <TextView
                     android:text="Naziv"
                     android:gravity="left"
