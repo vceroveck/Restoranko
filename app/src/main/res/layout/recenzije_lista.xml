@@ -9,19 +9,22 @@
         android:text="TextView"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF">
     </TextView>
     <TextView
         android:id="@+id/txtIspisLjestvice"
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF">
     </TextView>
     <TextView
         android:id="@+id/txtIspisInformacije"
         android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF">
     </TextView>
 
 </LinearLayout>

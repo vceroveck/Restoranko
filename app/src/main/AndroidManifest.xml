@@ -38,10 +38,12 @@
             android:parentActivityName=".controller.KorisnickiProfil"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".controller.RestaurantDetails" />
-        <activity android:name=".controller.Menu" />
+        <activity android:name=".controller.Menu"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.Rezervacija"
-            android:label="Rezervacija" />
+            android:label="Rezervacija"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.Favoriti"
             android:label="Omiljeni restorani"
@@ -66,7 +68,8 @@
         <activity
             android:name=".controller.RecenzijeIspis"
             android:label="Sve recenzije"
-            android:parentActivityName=".controller.Navigation" />
+            android:parentActivityName=".controller.Navigation"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".controller.Splash_Screen"
                   android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>

@@ -33,32 +33,38 @@
                     android:text="Naziv"
                     android:gravity="left"
                     android:background="#d1d0d0"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
                 <TextView
                     android:gravity="left"
                     android:background="#d1d0d0"
                     android:text="Kol."
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
                 <TextView
                     android:background="#d1d0d0"
                     android:gravity="left"
                     android:text="Cijena"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
                 <TextView
                     android:background="#d1d0d0"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="+kol. "/>
+                    android:text="+kol. "
+                    android:textColor="#FFFFFF"/>
                 <TextView
                     android:background="#d1d0d0"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="-kol."/>
+                    android:text="-kol."
+                    android:textColor="#FFFFFF"/>
                 <TextView
                     android:background="#d1d0d0"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:text="      "/>
+                    android:text="      "
+                    android:textColor="#FFFFFF"/>
             </TableRow>
         </TableLayout>
 
@@ -72,6 +78,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/ukupnaCijena"
+            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

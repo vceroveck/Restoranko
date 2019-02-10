@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:background="#1f2530">
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,6 +28,7 @@
         android:text="@string/odaberiteJelovnik"
         android:textSize="30sp"
         android:textStyle="bold"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +60,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/potvrdi"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:background="@drawable/pozadina_gumb"
+        android:padding="16dp"
+        android:clickable="true"/>
 
     <Button
         android:id="@+id/potvrdi"
@@ -60,6 +77,13 @@
         android:text="@string/potvrdi"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/natrag" />
+        app:layout_constraintStart_toEndOf="@+id/natrag"
+        android:textColor="#FFFFFF"
+        android:textSize="18dp"
+        android:background="@drawable/pozadina_gumb"
+        android:padding="16dp"
+        android:clickable="true"/>
 
 </android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
