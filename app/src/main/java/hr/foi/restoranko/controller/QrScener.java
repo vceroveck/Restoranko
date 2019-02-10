@@ -107,8 +107,6 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
 
                                 listSifri.add(data.getKey());
-
-
                         }
                     }
                 }
@@ -118,9 +116,6 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
 
                 }
             });
-
-        }
-        else{
 
         }
     }
@@ -179,7 +174,7 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
             }
         }
     }
-
+    //Kreira iskočni prozor
     public void displayAlertMessage(String message, DialogInterface.OnClickListener listener) {
         new AlertDialog.Builder(getApplicationContext()).setMessage(message).setPositiveButton("OK", listener).setNegativeButton("Cancel", null).create().show();
     }
@@ -189,6 +184,5 @@ public class QrScener extends AppCompatActivity  implements ZXingScannerView.Res
         super.onDestroy();
         scannerView.stopCamera();
     }
-
 
 }
