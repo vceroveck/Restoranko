@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.MainActivity">
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:background="#1f2530">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="182dp"
-        android:layout_height="162dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="8dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1" />
 
-    <TextView
-        android:id="@+id/txt_main"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_alignEnd="@+id/logo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".controller.Registration">
 
-    <LinearLayout
-        android:id="@+id/polaEkrana"
-        android:gravity="top|center"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_main">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <include
-            android:id="@+id/umetnutiSpinner"
-            layout="@layout/spinner">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </include>
-        <include
-            android:id="@+id/umetnutiGumbi"
-            android:visibility="gone"
-            layout="@layout/prijavaregistracija">
 
-        </include>
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="160dp"
+                    android:layout_height="130dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="64dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/prijavaLogo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo" />
 
-</android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <include
+                android:id="@+id/umetnutiSpinner"
+                layout="@layout/spinner">
+
+            </include>
+
+            <include
+                android:id="@+id/umetnutiGumbi"
+                layout="@layout/prijavaregistracija"
+                android:visibility="gone">
+
+            </include>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

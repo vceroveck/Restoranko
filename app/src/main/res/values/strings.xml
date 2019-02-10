@@ -67,4 +67,8 @@
     <string name="ljestvica">fenomenalno</string>
     <string name="posalji">Pošalji povratnu informaciju</string>
 
+    <!-- activity_splash_screen.xml -->
+    <string name="pocetna_poruka">The best way to order food.</string>
+    <string name="naziv_restorana">Restoranko</string>
+
 </resources>
