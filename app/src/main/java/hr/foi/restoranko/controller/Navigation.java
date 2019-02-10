@@ -113,7 +113,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         categories.add("Top 10 s najviše oznaka 'omiljeno'");
         categories.add("Top 10 s najboljim ocjenama");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 

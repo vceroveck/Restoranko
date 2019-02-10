@@ -9,6 +9,7 @@
 
     <Spinner
         android:id="@+id/sortirajGumb"
+        android:theme="@style/WhiteFilter"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -21,6 +22,7 @@
     <SearchView
         android:id="@+id/pretraga"
         android:layout_width="369dp"
+        android:theme="@style/SearchViewWhite"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"

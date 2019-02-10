@@ -45,7 +45,8 @@
         <activity
             android:name=".controller.Favoriti"
             android:label="Omiljeni restorani"
-            android:parentActivityName=".controller.KorisnickiProfil" />
+            android:parentActivityName=".controller.KorisnickiProfil"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.MojeRezervacije"
             android:parentActivityName=".controller.KorisnickiProfil"

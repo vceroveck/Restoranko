@@ -13,4 +13,18 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="ActionBar_Color">
+        <item name="android:background">#1f2530</item>
+    </style>
+
+    <style name="SearchViewWhite">
+        <item name="android:editTextColor">#FFFFFF</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+    </style>
+
+    <style name="WhiteFilter">
+        <item name="android:backgroundTint">#FFFFFF</item>
+    </style>
+
 </resources>
