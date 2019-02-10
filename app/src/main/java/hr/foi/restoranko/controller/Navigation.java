@@ -108,10 +108,11 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
     private void PostaviElementeNavigacije() {
         final Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
         List<String> categories = new ArrayList<String>();
-        categories.add("Bez filtera");
+        categories.add("Prikaži top liste");
         categories.add("Top 10 prema broju pregleda");
         categories.add("Top 10 s najviše oznaka 'omiljeno'");
         categories.add("Top 10 s najboljim ocjenama");
+        categories.add("Bez filtera");
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,13 +121,8 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch(i) {
-                    case 0:
-                        if(pocetakPrograma) {
-                            pocetakPrograma = false;
-                        }
-                        else {
-                            PretragaRestorana("");
-                        }
+                    case 4:
+                        PretragaRestorana("");
                         break;
                     case 1:
                         container.removeAllViews();
