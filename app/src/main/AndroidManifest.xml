@@ -48,7 +48,8 @@
             android:parentActivityName=".controller.KorisnickiProfil" />
         <activity
             android:name=".controller.MojeRezervacije"
-            android:parentActivityName=".controller.KorisnickiProfil" />
+            android:parentActivityName=".controller.KorisnickiProfil"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.OdabirStolaActivity"
             android:label="Odabir stola" />
@@ -59,7 +60,8 @@
         <activity
             android:name=".controller.Recenzija"
             android:label="Unos recenzije"
-            android:parentActivityName=".controller.MojeRezervacije" />
+            android:parentActivityName=".controller.MojeRezervacije"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.RecenzijeIspis"
             android:label="Sve recenzije"

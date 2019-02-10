@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".controller.Recenzija">
+    android:padding="50dp"
+    tools:context=".controller.Recenzija"
+    android:background="#1f2530">
 
     <TextView
         android:id="@+id/txtPoruka"
@@ -15,6 +16,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:text="@string/poruka"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="italic" />
 
@@ -35,6 +37,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="@string/ljestvica"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -47,15 +50,20 @@
         android:gravity="top"
         android:hint="Recite nam što Vam se svidjelo."
         android:inputType="textMultiLine"
-        android:lines="5" />
+        android:lines="5"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <Button
         android:id="@+id/btnPosalji"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#e57373"
+        android:background="@drawable/pozadina_gumb"
+        android:clickable="true"
+        android:padding="16dp"
         android:text="@string/posalji"
-        android:textColor="@android:color/white" />
+        android:textColor="#FFFFFF"
+        android:textSize="15dp" />
 
 </LinearLayout>

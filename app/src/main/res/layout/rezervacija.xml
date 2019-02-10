@@ -7,19 +7,20 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/stroke_bg"
         android:layout_margin="5dp"
+        android:background="@drawable/stroke_bg"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/rezervacijaNaziv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="serif"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#FFFFFF"
             android:textIsSelectable="false"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,32 +33,45 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="01.01.1991. 00:00"
+            android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/rezervacijaPotvrda"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/pozadina_gumb"
+            android:clickable="true"
+            android:padding="16dp"
             android:text="@string/potvrdiRezervaciju"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rezervacijaNaziv" />
+            app:layout_constraintTop_toBottomOf="@+id/rezervacijaNaziv"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/rezervacijaRecenzija"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
+            android:background="@drawable/pozadina_gumb"
+            android:clickable="true"
+            android:padding="16dp"
             android:text="@string/recenzija"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rezervacijaNaziv" />
+            app:layout_constraintTop_toBottomOf="@+id/rezervacijaNaziv"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 
