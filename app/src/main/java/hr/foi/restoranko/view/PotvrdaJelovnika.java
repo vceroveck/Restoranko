@@ -1,5 +1,6 @@
 package hr.foi.restoranko.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,14 +41,17 @@ public class PotvrdaJelovnika extends Fragment {
             tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
             TextView tv1 = new TextView(v.getContext());
+            tv1.setTextColor(Color.WHITE);
             tv1.setText(j.getJelovnik().getNaziv());
             tr.addView(tv1);
 
             final TextView tv2 = new TextView(v.getContext());
+            tv2.setTextColor(Color.WHITE);
             tv2.setText(String.valueOf(j.getKolicina()));
             tr.addView(tv2);
 
             final TextView tv3 = new TextView(v.getContext());
+            tv3.setTextColor(Color.WHITE);
             tv3.setText(String.format("%.2f" , Double.valueOf(j.getJelovnik().getCijena()) * j.getKolicina() ));
             tr.addView(tv3);
 
