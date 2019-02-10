@@ -37,7 +37,8 @@
             android:label="Promjena lozinke"
             android:parentActivityName=".controller.KorisnickiProfil"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".controller.RestaurantDetails" />
+        <activity android:name=".controller.RestaurantDetails"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".controller.Menu" />
         <activity
             android:name=".controller.Rezervacija"
@@ -45,7 +46,8 @@
         <activity
             android:name=".controller.Favoriti"
             android:label="Omiljeni restorani"
-            android:parentActivityName=".controller.KorisnickiProfil" />
+            android:parentActivityName=".controller.KorisnickiProfil"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".controller.MojeRezervacije"
             android:parentActivityName=".controller.KorisnickiProfil"

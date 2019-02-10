@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingRight="18dp"
+    android:background="#1f2530">
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,7 +20,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
     <ImageView
         android:id="@+id/restoran_slika"
@@ -34,6 +44,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textIsSelectable="false"
         android:textSize="14sp"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/restoran_slika"
@@ -53,23 +64,28 @@
 
         <Button
             android:id="@+id/menu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="154dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
+            android:background="@drawable/pozadina_gumb"
+            android:clickable="true"
+            android:padding="16dp"
             android:text="Menu"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rezerviraj"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5"/>
 
         <Button
             android:id="@+id/rezerviraj"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="154dp"
+            android:layout_height="52dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
@@ -78,7 +94,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/menu"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:background="@drawable/pozadina_gumb"
+            android:padding="16dp"
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -88,6 +109,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/restoranAdresa"
             android:textStyle="bold"
+            android:textColor="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -99,6 +121,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/restoranKontakt"
         android:textStyle="bold"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -110,6 +133,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/restoranWebAdresa"
         android:textStyle="bold"
+        android:textColor="#FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -121,6 +145,7 @@
         android:layout_marginTop="16dp"
         android:autoLink="map"
         android:text="TextView"
+        android:textColor="#FFFFFF"
         android:textColorLink="@color/colorPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -133,6 +158,7 @@
         android:layout_marginTop="16dp"
         android:autoLink="phone"
         android:text="TextView"
+        android:textColor="#FFFFFF"
         android:textColorLink="@color/colorPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/restoran_adresa" />
@@ -145,9 +171,12 @@
         android:layout_marginTop="16dp"
         android:autoLink="web"
         android:text="TextView"
+        android:textColor="#FFFFFF"
         android:textColorLink="@color/colorPrimaryDark"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/restoran_kontakt" />
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>
+
+</LinearLayout>
