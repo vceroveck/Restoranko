@@ -61,6 +61,7 @@ public class LogIn extends AppCompatActivity {
 
     }
 
+    //Metoda koja prijavljuje korisnika u sustav, prikazuje mu poruku o uspješnoj prijavi, sprema korisničke podatke na uređaj i otvara aktivnost Navigacija
     private void korisnikPrijavljen(){
         Toast.makeText(LogIn.this, "Uspješna prijava " + Korisnik.prijavljeniKorisnik.getIme() + " " + Korisnik.prijavljeniKorisnik.getPrezime(), Toast.LENGTH_SHORT).show();
 

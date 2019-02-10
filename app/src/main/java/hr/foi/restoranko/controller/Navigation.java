@@ -3,8 +3,6 @@ package hr.foi.restoranko.controller;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -107,6 +104,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         startActivity(intent);
     }
 
+    //Postavljanje elemenata za filtriranje i pretraživanje restorana
     private void PostaviElementeNavigacije() {
         final Spinner spinner = (Spinner) findViewById(R.id.sortirajGumb);
         List<String> categories = new ArrayList<String>();
@@ -200,6 +198,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     }
 
+    //Pretraga restorana prema zadanom tekstu
     private void PretragaRestorana(String tekst) {
         container.removeAllViews();
         for(int i = 0; i<listaRestorana.size(); i++) {
@@ -241,6 +240,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         });
     }
 
+    //Dohvaćanje atributa potrebnih za filtriranje restorana
     private void DohvatiOstaleAtribute(final Restoran novi) {
         final long[] brojOmiljeno = {0};
 
@@ -361,6 +361,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         return true;
     }
 
+    //Odjava korisnika s sustava čime se brišu podaci o prijavi s uređaja
     private void Logout(){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
@@ -430,7 +431,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-
+    //Postavljanje glavnog izbornika
     private void addDrawerItems(){
         Object[] items={"Korisnički profil", "Recenzije", "Odjava"};
         mAdapter = new ArrayAdapter<Object>(this, android.R.layout.simple_list_item_1, items);
@@ -462,6 +463,7 @@ public class Navigation extends AppCompatActivity implements NavigationView.OnNa
 
     }
 
+    //Postavljanje glavnog izbornika
     private void onItemClickListener(int position){
 
         switch (position){

@@ -2,7 +2,6 @@ package hr.foi.restoranko.model;
 import android.annotation.SuppressLint;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import hr.foi.restoranko.view.Slika;
 

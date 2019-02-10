@@ -31,6 +31,7 @@ public class PotvrdaJelovnika extends Fragment {
         return v;
     }
 
+    //Metoda pomoću koje se dohvaćaju svi naručeni jelovnici
     private void UcitajStavke() {
         TableLayout tl = (TableLayout) v.findViewById(R.id.jelovnici);
 
@@ -90,6 +91,7 @@ public class PotvrdaJelovnika extends Fragment {
         }
     }
 
+    //Metoda koja izračunava ukupnu cijenu jela
     private void IzracunajCijenu() {
         double ukupnaCijena = 0;
         for(RezerviraniJelovnik rj : RezerviraniJelovnik.listaRezerviranihJela) {

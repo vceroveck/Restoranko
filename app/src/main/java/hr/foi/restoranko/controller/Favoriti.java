@@ -43,6 +43,7 @@ public class Favoriti extends AppCompatActivity {
         finish();
     }
 
+    //Metoda koja dohvaća prikazuje restorane na zaslon
     private void PrikaziRestoran(final Restoran restoran) {
         LayoutInflater li = LayoutInflater.from(this);
         View divider = li.inflate(R.layout.restorani, null, false);
@@ -65,6 +66,7 @@ public class Favoriti extends AppCompatActivity {
         container.addView(divider);
     }
 
+    //Metoda koja dohvaća sve restorane-favorite
     private void DohvatiSveRestorane() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("omiljeniRestorani");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,6 +96,7 @@ public class Favoriti extends AppCompatActivity {
         });
     }
 
+    //Metoda koja dohvaća sliku restorana
     private void DohvatiSlikuRestorana(final Restoran restoran) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReferenceFromUrl(restoran.getSlika());

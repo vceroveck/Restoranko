@@ -45,6 +45,7 @@ public class OdabirJelovnika extends Fragment {
         return v;
     }
 
+    //Metoda koja dohvaća sve jelovnike određenog restorana
     private void DohvatiSveJelovnike(final long restoranId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("jelovnik");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,6 +70,7 @@ public class OdabirJelovnika extends Fragment {
 
     }
 
+    //Metoda koja prikazuje određeni jelovnik
     private void PrikaziJelovnik(final Jelovnik jelovnik) {
         LayoutInflater li = LayoutInflater.from(getView().getContext());
         final View divider = li.inflate(R.layout.jelovnik, null, false);
@@ -130,6 +132,7 @@ public class OdabirJelovnika extends Fragment {
         });
     }
 
+    //Metoda pomoću koje se prikazuju jela određenog jelovnika
     private void PrikaziJelo(String nazivJela, View divider) {
         kontejner.removeView(divider);
 

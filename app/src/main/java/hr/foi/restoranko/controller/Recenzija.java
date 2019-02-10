@@ -2,7 +2,6 @@ package hr.foi.restoranko.controller;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +61,7 @@ public class Recenzija extends AppCompatActivity {
             }
         });
 
+        //Provjera ispravnosti recenzije i slanje u bazu
         posalji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +77,7 @@ public class Recenzija extends AppCompatActivity {
         });
     }
 
+    //Slanje recenzije u bazu
     private void dodajRecenziju(){
         long restoranId = getIntent().getExtras().getLong("restoranko");
         String nazivRestorana = getIntent().getExtras().getString("restoranko");

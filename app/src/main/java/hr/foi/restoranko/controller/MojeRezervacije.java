@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,11 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.Locale;
 
-import javax.security.auth.login.LoginException;
-
 import hr.foi.restoranko.R;
 import hr.foi.restoranko.model.Korisnik;
-import hr.foi.restoranko.model.Restoran;
 import hr.foi.restoranko.model.Rezervacija;
 
 public class MojeRezervacije extends AppCompatActivity {
@@ -40,6 +36,7 @@ public class MojeRezervacije extends AppCompatActivity {
         DohvatiSveMojeRezervacije();
     }
 
+    //Dohvaćanje svih korisnikovih rezervacija
     private void DohvatiSveMojeRezervacije() {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child("user").child(Korisnik.prijavljeniKorisnik.getuId()).child("rezervacijeKorisnika").orderByKey().addValueEventListener(new ValueEventListener() {
@@ -87,6 +84,7 @@ public class MojeRezervacije extends AppCompatActivity {
 
     }
 
+    //Prikaz svih rezervacija
     private void Prikazi(final Rezervacija rezervacija) {
         LayoutInflater li = LayoutInflater.from(this);
         View divider = li.inflate(R.layout.rezervacija, null, false);

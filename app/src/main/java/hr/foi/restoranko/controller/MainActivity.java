@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+        //Dohvaćanje korisničkih podataka ako postoje na uređaju
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String email = preferences.getString("email", "");
         String password = preferences.getString("lozinka", "");
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Otvaranje aktivnosti Navigacija
     private void prijaviKorisnika() {
         startActivity(new Intent(MainActivity.this, Navigation.class));
     }

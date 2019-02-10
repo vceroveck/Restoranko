@@ -14,6 +14,7 @@ public class Jelo {
     public String nazivJela;
     public static List<Jelo> listaSvihJela = new ArrayList<>();
 
+    //Pozivom ovog konstruktora se dohvaćaju sva jela iz baze te se spremaju u listu
     public Jelo(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("jelo");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -39,6 +40,7 @@ public class Jelo {
         this.nazivJela = nazivJela;
     }
 
+    //Vraća naziv jela s obzirom na id jela
     public static String vratiNazivJela(long _id) {
 
         for(Jelo j : listaSvihJela){

@@ -61,6 +61,7 @@ public class KorisnickiProfil extends AppCompatActivity {
         });
     }
 
+    //Metoda koja postavlja sliku korisnika
     private void PostaviSliku(Uri filePath) {
         Slika slika = new Slika(filePath);
         Korisnik.prijavljeniKorisnik.setSlika(slika);
@@ -68,6 +69,7 @@ public class KorisnickiProfil extends AppCompatActivity {
         Slika.PohraniSlikuUbazu(slika, getBaseContext(), KorisnickiProfil.this);
     }
 
+    //Metoda koja učitava korisničke podatke
     private void  UcitajKorisnickePodatke(){
         Slika.postaviSlikuUImageView(Korisnik.prijavljeniKorisnik.getSlika(), slikaProfila, getBaseContext());
         TextView Ime = (TextView) findViewById(R.id.outputKorisnikIme);
@@ -76,6 +78,7 @@ public class KorisnickiProfil extends AppCompatActivity {
         Prezime.setText(Korisnik.prijavljeniKorisnik.getPrezime());
     }
 
+    //Metoda koja omogućava korisniku da zamijeni sliku profila
     private void OdaberiSliku(){
         Intent intent=new Intent();
         intent.setType("image/*");
